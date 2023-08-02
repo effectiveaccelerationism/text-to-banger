@@ -5,7 +5,7 @@ api_key = 'YOUR_API_KEY'
 openai.api_key = api_key
 
 def generate_banger(tweet_text):
-    prompt = f"Turn this tweet into a solid banger, where a banger is a banger is a tweet of higher quality compared to most others, usually in comedic value and wording: '{tweet_text}'"
+    prompt = f"Turn this tweet into a solid banger, where a banger is a tweet of higher quality compared to most others, usually in comedic value and wording: '{tweet_text}'"
     response = openai.Completion.create(
         engine="text-davinci-003",  # You can choose a different engine based on your subscription
         prompt=prompt,
