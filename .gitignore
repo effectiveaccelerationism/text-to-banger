@@ -1,3 +1,4 @@
 .env
 env
 .DS_Store
+model/data/
