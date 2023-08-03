@@ -3,15 +3,16 @@
 }
 
 .App-logo {
-  height: 40vmin;
+  height: 18vmin;
+  margin-bottom: 10px;
   pointer-events: none;
 }
 
-@media (prefers-reduced-motion: no-preference) {
+/* @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
   }
-}
+} */
 
 .App-header {
   background-color: #282c34;
@@ -28,6 +29,44 @@
   color: #61dafb;
 }
 
+.tweet-form {
+  background: #ffffff;
+  border: 1px solid #e1e8ed;
+  border-radius: 5px;
+  padding: 10px;
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+}
+
+.tweet-form textarea {
+  border: none;
+  padding: 10px;
+  resize: none;
+  outline: none;
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  line-height: 20px;
+}
+
+.tweet-button {
+  background-color: #1da1f2;
+  border: none;
+  color: white;
+  padding: 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 5px 0;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.tweet-button:hover {
+  background-color: #0c7abf;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
@@ -36,3 +75,4 @@
     transform: rotate(360deg);
   }
 }
+
