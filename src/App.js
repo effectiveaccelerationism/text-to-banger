@@ -5,48 +5,70 @@ import './App.css';
 function App() {
   const [tweetIdea, setTweetIdea] = useState('');
   const [generatedTweet, setGeneratedTweet] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleTweetIdeaChange = (e) => {
     setTweetIdea(e.target.value);
   }
 
   const handleGenerateTweet = () => {
-    // Here you can add logic to transform the tweet idea into a "banger" tweet
-    // For now, we'll just prepend "Banger Tweet: " to the input
-    setGeneratedTweet(`${tweetIdea}`);
-  }
+    setIsLoading(true);
+    // Send the tweet idea to the server to generate a tweet
+    fetch('http://localhost:3001/api/generate-tweet', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ tweetIdea })
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`An error occurred: ${response.statusText}`);
+      }
+      return response.json();
+    })
+    .then(data => {
+      setGeneratedTweet(data.generatedTweet);
+      setIsLoading(false);
+    })
+    .catch(error => {
+      console.error('An error occurred:', error);
+      setIsLoading(false);
+    });
+  };
 
   return (
     <div className="App">
-    <header className="App-header">
-      <img src={logo} className="App-logo" alt="logo" />
-      <div className="tweet-form">
-        <textarea
-          id="tweetIdea"
-          value={tweetIdea}
-          onChange={handleTweetIdeaChange}
-          placeholder="What's happening?"
-          rows="4"
-        />
-        <button className="tweet-button" onClick={handleGenerateTweet}>Generate Banger Tweet</button>
-      </div>
-      {generatedTweet && (
-        <>
-          <p>{generatedTweet}</p>
-          <a
-            className="tweet-button"
-            href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(generatedTweet)}`}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Post Banger Tweet
-          </a>
-        </>
-      )}
-    </header>
-  </div>
+      <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
+        <div className="tweet-form">
+          <textarea
+            id="tweetIdea"
+            value={tweetIdea}
+            onChange={handleTweetIdeaChange}
+            placeholder="What's happening?"
+            rows="4"
+          />
+          <button className="tweet-button" onClick={handleGenerateTweet} disabled={isLoading}>Generate Banger Tweet</button>
+        
+        </div>
+        {isLoading && <p>generating a banger...</p>}
+        <div className="generated-tweet-container"> {/* Added this container */}
+          {generatedTweet && (
+            <>
+              <p>{generatedTweet}</p>
+              <a
+                className="tweet-button"
+                href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(generatedTweet)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Post Banger Tweet
+              </a>
+            </>
+          )}
+        </div>
+      </header>
+    </div>
   );
 }
 
 export default App;
-
