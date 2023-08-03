@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import logo from './TTBwordmark.png';
+import logo from './TTB.png';
 import './App.css';
 
 function App() {
@@ -38,33 +38,36 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <div className="tweet-form">
-          <textarea
-            id="tweetIdea"
-            value={tweetIdea}
-            onChange={handleTweetIdeaChange}
-            placeholder="What's happening?"
-            rows="4"
-          />
-          <button className="tweet-button" onClick={handleGenerateTweet} disabled={isLoading}>Generate Banger Tweet</button>
-        
+        <div className="logo-container">
+          <img src={logo} className="App-logo" alt="logo" />
         </div>
-        {isLoading && <p>generating a banger...</p>}
-        <div className="generated-tweet-container"> {/* Added this container */}
-          {generatedTweet && (
-            <>
-              <p>{generatedTweet}</p>
-              <a
-                className="tweet-button"
-                href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(generatedTweet)}`}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Post Banger Tweet
-              </a>
-            </>
-          )}
+        <div className="content-container"> {/* This new div wraps both the form and the generated tweet container */}
+          <div className="tweet-form">
+            <textarea
+              id="tweetIdea"
+              value={tweetIdea}
+              onChange={handleTweetIdeaChange}
+              placeholder="What's happening?"
+              rows="4"
+            />
+            <button className="tweet-button" onClick={handleGenerateTweet} disabled={isLoading}>Generate Banger Tweet</button>
+          </div>
+          {isLoading && <p>generating a banger...</p>}
+          <div className="generated-tweet-container">
+            {generatedTweet && (
+              <>
+                <p>{generatedTweet}</p>
+                <a
+                  className="tweet-button"
+                  href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(generatedTweet)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Post Banger Tweet
+                </a>
+              </>
+            )}
+          </div>
         </div>
       </header>
     </div>

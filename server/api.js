@@ -24,7 +24,7 @@ app.post('/api/generate-tweet', async (req, res) => {
       messages: [
         {
           role: 'system',
-          content: 'You are a simple API converting a user\'s proposed tweet into a veritable banger. Your task is to compose a banger tweet based on the user\'s input. Do not use hashtags.',
+          content: 'Turn this tweet into a solid banger, where a banger is a tweet of higher quality compared to most others, usually in comedic value and wording. Do not use hashtags.',
         },
         {
           role: 'user',

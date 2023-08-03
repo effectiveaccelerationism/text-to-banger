@@ -1,28 +1,44 @@
+@font-face {
+  font-family: 'AnonPro'; /* You can name it anything */
+  src: url('../public/fonts/AnonymousPro-Bold.ttf') format('truetype'); /* Update the path and format */
+}
+
+body, p, button {
+  font-family: 'AnonPro', monospace; /* Use the custom font as the main font and fall back to a monospace font */
+}
+
 .App {
   text-align: center;
 }
 
 .App-logo {
-  height: 18vmin;
-  margin-bottom: 10px;
+  height: 5vmin;
+  margin-bottom: 30px;
   pointer-events: none;
 }
-
-/* @media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-} */
 
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  justify-content: center; /* Center items along the main axis (vertically in this case) */
+  align-items: center; /* Center items along the cross axis (horizontally in this case) */
+  color: white;
+}
+
+.logo-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 100px; /* Adjust as per your need */
+}
+
+.content-container {
+  display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
 .App-link {
@@ -34,7 +50,7 @@
   border: 1px solid #e1e8ed;
   border-radius: 5px;
   padding: 10px;
-  width: 300px;
+  width: 500px;
   display: flex;
   flex-direction: column;
 }
@@ -44,7 +60,7 @@
   padding: 10px;
   resize: none;
   outline: none;
-  font-family: Arial, sans-serif;
+  font-family: 'AnonPro', monospace; /* Custom font here as well */
   font-size: 16px;
   line-height: 20px;
 }
@@ -68,9 +84,30 @@
 }
 
 .generated-tweet-container {
-  width: 33%;
+  width: 33%; /* Set to 100% for better mobile compatibility */
   margin: 0 auto;
   text-align: center;
+}
+
+/* Media query for small screens (max-width: 768px) */
+@media only screen and (max-width: 768px) {
+  .tweet-form {
+    width: 90%; /* Increase width for mobile */
+    margin: 0 auto; /* Center the form */
+  }
+
+  .generated-tweet-container {
+    width: 90%; /* Set to 100% for better mobile compatibility */
+    margin: 0 auto;
+    text-align: center;
+    /* padding: 0 20px; Add some padding for smaller screens */
+  }
+
+  .App-logo {
+    height: 10vmin;
+    margin-bottom: 30px;
+    pointer-events: none;
+  }
 }
 
 @keyframes App-logo-spin {
@@ -81,4 +118,3 @@
     transform: rotate(360deg);
   }
 }
-
