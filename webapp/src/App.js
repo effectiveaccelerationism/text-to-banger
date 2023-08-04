@@ -14,7 +14,7 @@ function App() {
   const handleGenerateTweet = () => {
     setIsLoading(true);
     // Send the tweet idea to the server to generate a tweet
-    fetch('https://tweet-to-banger-2548b00f1065.herokuapp.com/api/generate-tweet', {
+    fetch('http://localhost:3001/api/generate-tweet', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ tweetIdea })
