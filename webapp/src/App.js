@@ -1,19 +1,24 @@
 import React, { useState } from 'react';
 import logo from './TTBwordmark.png';
+import axios from 'axios';
 import './App.css';
 
 function App() {
   const [tweetIdea, setTweetIdea] = useState('');
   const [generatedTweet, setGeneratedTweet] = useState(null);
+  const [errorMessage, setErrorMessage] = useState(null);
 
   const handleTweetIdeaChange = (e) => {
     setTweetIdea(e.target.value);
   }
 
   const handleGenerateTweet = () => {
-    // Here you can add logic to transform the tweet idea into a "banger" tweet
-    // For now, we'll just prepend "Banger Tweet: " to the input
-    setGeneratedTweet(`${tweetIdea}`);
+    const tweet = axios.post('http://localhost:8080/generateBanger', {originalText: tweetIdea}).then((response) => {
+      setGeneratedTweet(`${response.data}`);
+      setErrorMessage(null);
+    }).catch((error) => {
+      setErrorMessage('Error generating banger. Please try again later.');
+    });
   }
 
   return (
@@ -42,6 +47,9 @@ function App() {
             Post Banger Tweet
           </a>
         </>
+      )}
+      {errorMessage && ( 
+        <p className="error-text">{errorMessage}</p>
       )}
     </header>
   </div>
