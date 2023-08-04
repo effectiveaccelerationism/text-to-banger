@@ -7,32 +7,34 @@ from dotenv import load_dotenv
 # Load environment variables
 load_dotenv()
 
-# Get the bearer token from environment variables
+# Get the bearer token and user ID from environment variables
 bearer_token = os.getenv("TWITTER_BEARER_TOKEN")
-
-# Create URL with your user ID
 user_id = os.getenv("TWITTER_USER_ID")
+
+# Create URL with user ID
 url = f"https://api.twitter.com/2/users/{user_id}/following"
 
-print(user_id)
-
-# Set parameters
+# Set parameters and headers
 params = {"user.fields": "username"}
-
-# Set headers
-headers = {"Authorization": f"Bearer {bearer_token}", "User-Agent": "v2FollowingLookupPython"}
+# bearer_oauth = {"Authorization": f"Bearer {bearer_token}", "User-Agent": "v2FollowingLookupPython"}
+def bearer_oauth(r):
+    r.headers["Authorization"] = f"Bearer {bearer_token}"
+    r.headers["User-Agent"] = "v2FollowingLookupPython"
+    return r
 
 # Send request
-response = requests.request("GET", url, headers=headers, params=params)
+response = requests.request("GET", url, auth=bearer_oauth, params=params)
+
+print(response)
 
 # Check response status
 if response.status_code != 200:
-    raise Exception("Request returned an error: {} {}".format(response.status_code, response.text))
+    raise Exception(f"Request returned an error: {response.status_code} {response.text}")
 
 # Parse response
 json_response = response.json()
 
-# Extract usernames
+# Extract usernames and write to CSV
 following = [user['username'] for user in json_response['data']]
 
 # Save the accounts to a CSV file
