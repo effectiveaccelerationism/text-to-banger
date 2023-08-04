@@ -28,6 +28,7 @@ def generate_banger(tweet_text, settings = None, retry = True):
     return banger_tweet
 
 def get_settings_string(settings):
+    if not settings: return ''
     if not any(settings.values()): return ''
     ret = '\nThe response must follow the following rules:'
     if settings['suppressHashtags']:
@@ -37,6 +38,7 @@ def get_settings_string(settings):
     return ret
 
 def validate_settings_compliance(settings, banger_tweet):
+    if not settings: return True
     if not any(settings.values()): return True
     if settings['suppressHashtags'] and '#' in banger_tweet: return False
     if settings['suppressEmojis']:
