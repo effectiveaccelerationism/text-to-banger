@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 // import logo from './TTB.png';
 import './App.css';
 
@@ -13,20 +14,17 @@ function App() {
 
   const handleGenerateTweet = () => {
     setIsLoading(true);
+    setGeneratedTweet(null);
     // Send the tweet idea to the server to generate a tweet
-    fetch('https://localhost:8080/generate-banger', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ tweetIdea })
-    })
+    axios.post('http://localhost:8080/generate-banger', {originalText: tweetIdea})
     .then(response => {
-      if (!response.ok) {
-        throw new Error(`An error occurred: ${response.statusText}`);
+      if (response.status !== 200) {
+        throw new Error(`Request failed with status code ${response.status}`);
       }
-      return response.json();
+      return response.data;
     })
     .then(data => {
-      setGeneratedTweet(data.generatedTweet);
+      setGeneratedTweet(data);
       setIsLoading(false);
     })
     .catch(error => {
