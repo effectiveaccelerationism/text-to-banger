@@ -1,15 +1,16 @@
 @font-face {
-  font-family: 'AnonPro'; /* You can name it anything */
-  src: url('../public/fonts/AnonymousPro-Bold.ttf') format('truetype'); /* Update the path and format */
+  font-family: 'AnonPro';
+  src: url('../public/fonts/AnonymousPro-Bold.ttf') format('truetype');
 }
 
 body, p, button {
-  font-family: 'AnonPro', monospace; /* Use the custom font as the main font and fall back to a monospace font */
-  color: #000000;
+  font-family: 'AnonPro', monospace;
+  color: #FFFFFF;
+  background: #000000;
 }
 
 .text-logo {
-  font-family: 'AnonPro', monospace; /* Use the custom font as the main font and fall back to a monospace font */
+  font-family: 'AnonPro', monospace;
   font-size: 40px;
   font-weight: bold;
   color: #1da1f2;
@@ -17,6 +18,7 @@ body, p, button {
 
 .App {
   text-align: center;
+  background: #000000;
 }
 
 .App-logo {
@@ -26,11 +28,11 @@ body, p, button {
 }
 
 .App-header {
-  background-color: #ffffff;
+  background-color: #000000;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: center; /* Center items along the main axis (vertically in this case) */
+  justify-content: center; 
   color: white;
 }
 
@@ -52,14 +54,15 @@ body, p, button {
 }
 
 .tweet-form {
-  background: #ffffff;
-  border: 1px solid #e1e8ed;
+  background: #1A1A1B;
+  border: 1px solid #1A1A1B;
   border-radius: 5px;
   padding: 10px;
   width: 500px;
   display: flex;
   flex-direction: column;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow here */
+  box-shadow: 0px 4px 8px rgba(255, 255, 255, 0.1);
+  color: #FFFFFF;
 }
 
 .tweet-form textarea {
@@ -67,9 +70,11 @@ body, p, button {
   padding: 10px;
   resize: none;
   outline: none;
-  font-family: 'AnonPro', monospace; /* Custom font here as well */
+  font-family: 'AnonPro', monospace;
   font-size: 16px;
   line-height: 20px;
+  background: #1A1A1B;
+  color: #FFFFFF;
 }
 
 .tweet-button {
@@ -91,21 +96,22 @@ body, p, button {
 }
 
 .generated-tweet-container {
-  width: 33%; /* Set to 100% for better mobile compatibility */
+  width: 33%;
   margin: 0 auto;
   text-align: center;
   padding-top: 20px;
+  color: #FFFFFF;
+  background: #000000;
 }
 
-/* Media query for small screens (max-width: 768px) */
 @media only screen and (max-width: 768px) {
   .tweet-form {
-    width: 80%; /* Set to 100% for full width on mobile */
-    margin: 0 auto; /* Center the form */
+    width: 80%;
+    margin: 0 auto; 
   }
 
   .generated-tweet-container {
-    width: 80%; /* Set to 100% for full width on mobile */
+    width: 80%;
     margin: 0 auto;
     text-align: center;
   }
