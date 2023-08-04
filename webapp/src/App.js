@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import logo from './TTB.png';
+// import logo from './TTB.png';
 import './App.css';
 
 function App() {
@@ -39,7 +39,8 @@ function App() {
     <div className="App">
       <header className="App-header">
         <div className="logo-container">
-          <img src={logo} className="App-logo" alt="logo" />
+          {/* <img src={logo} className="App-logo" alt="logo" /> */}
+          <h1 className="text-logo">text-to-banger</h1>
         </div>
         <div className="content-container"> {/* This new div wraps both the form and the generated tweet container */}
           <div className="tweet-form">

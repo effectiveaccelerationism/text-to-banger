@@ -5,6 +5,14 @@
 
 body, p, button {
   font-family: 'AnonPro', monospace; /* Use the custom font as the main font and fall back to a monospace font */
+  color: #000000;
+}
+
+.text-logo {
+  font-family: 'AnonPro', monospace; /* Use the custom font as the main font and fall back to a monospace font */
+  font-size: 40px;
+  font-weight: bold;
+  color: #1da1f2;
 }
 
 .App {
@@ -18,7 +26,7 @@ body, p, button {
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: #ffffff;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -53,6 +61,7 @@ body, p, button {
   width: 500px;
   display: flex;
   flex-direction: column;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow here */
 }
 
 .tweet-form textarea {
