@@ -1,0 +1,9 @@
+{
+    "build": {
+      "includeFiles": ["webapp/public"],
+      "command": "cd webapp && npm install && npm run build"
+    },
+    "routes": [
+      { "src": "/(.*)", "dest": "/webapp/$1" }
+    ]
+  }
