@@ -13,10 +13,19 @@ function App() {
   }
 
   const handleGenerateTweet = () => {
+    const suppressHashtags = document.getElementById('suppress-hashtags').checked;
+    const suppressEmojis = document.getElementById('suppress-emojis').checked;
+
     setIsLoading(true);
     setGeneratedTweet(null);
     // Send the tweet idea to the server to generate a tweet
-    axios.post('http://localhost:8080/generate-banger', {originalText: tweetIdea})
+    axios.post('http://localhost:8080/generate-banger', {
+      originalText: tweetIdea,
+      settings: {
+        'suppressHashtags': suppressHashtags,
+        'suppressEmojis': suppressEmojis
+      }
+    })
     .then(response => {
       if (response.status !== 200) {
         throw new Error(`Request failed with status code ${response.status}`);
@@ -50,6 +59,16 @@ function App() {
               rows="4"
             />
             <button className="tweet-button" onClick={handleGenerateTweet} disabled={isLoading}>Generate Banger Tweet</button>
+            <div id='tweet-settings-container'>
+              <div>
+                <input type='checkbox' id='suppress-hashtags' name='suppress-hashtags' />
+                <label htmlFor='suppress-hashtags'>Suppress Hashtags</label>
+              </div>
+              <div>
+                <input type='checkbox' id='suppress-emojis' name='suppress-emojis' />
+                <label htmlFor='suppress-emojis'>Suppress Emojis</label>
+              </div>
+            </div>
           </div>
           {isLoading && <p>generating a banger...</p>}
           <div className="generated-tweet-container">

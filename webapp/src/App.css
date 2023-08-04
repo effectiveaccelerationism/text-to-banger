@@ -125,3 +125,17 @@ body, p, button {
     transform: rotate(360deg);
   }
 }
+
+#tweet-settings-container {
+  display:flex;
+  flex-wrap:nowrap;
+  justify-content: start;
+  align-items:center;
+  padding:10px 0px;
+}
+
+#tweet-settings-container > div {
+  margin: 0 10px;
+  color:#333;
+  font-size:10pt;
+}
