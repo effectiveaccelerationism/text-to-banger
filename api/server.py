@@ -12,7 +12,7 @@ serverPort = 8080
 
 def generate_banger(tweet_text):
     print(f"Generating banger for tweet: '{tweet_text}'")
-    prompt = f"Turn this tweet into a solid banger, where a banger is a banger is a tweet of higher quality compared to most others, usually in comedic value and wording: '{tweet_text}'"
+    prompt = f"Turn this tweet into a solid banger with no hashtags, where a banger is a tweet of higher quality compared to most others, usually in comedic value and wording: '{tweet_text}'"
     response = openai.Completion.create(
         engine="text-davinci-003",  # You can choose a different engine based on your subscription
         prompt=prompt,
