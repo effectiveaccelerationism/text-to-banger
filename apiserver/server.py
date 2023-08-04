@@ -1,10 +1,14 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import openai, json, os
+from dotenv import load_dotenv
 
-api_key = os.environ.get('OPENAI_KEY')
+# Load environment variables
+load_dotenv()
+
+api_key = os.environ.get('OPENAI_APIKEY')
 openai.api_key = api_key
-hostName = os.environ.get('HOST')
-serverPort = os.environ.get('PORT')
+hostName = "localhost"
+serverPort = 8080
 
 def generate_banger(tweet_text):
     print(f"Generating banger for tweet: '{tweet_text}'")
