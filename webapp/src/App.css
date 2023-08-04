@@ -1,28 +1,50 @@
+@font-face {
+  font-family: 'AnonPro'; /* You can name it anything */
+  src: url('../public/fonts/AnonymousPro-Bold.ttf') format('truetype'); /* Update the path and format */
+}
+
+body, p, button {
+  font-family: 'AnonPro', monospace; /* Use the custom font as the main font and fall back to a monospace font */
+  color: #000000;
+}
+
+.text-logo {
+  font-family: 'AnonPro', monospace; /* Use the custom font as the main font and fall back to a monospace font */
+  font-size: 40px;
+  font-weight: bold;
+  color: #1da1f2;
+}
+
 .App {
   text-align: center;
 }
 
 .App-logo {
-  height: 18vmin;
-  margin-bottom: 10px;
+  height: 5vmin;
+  margin-bottom: 30px;
   pointer-events: none;
 }
 
-/* @media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-} */
-
 .App-header {
-  background-color: #282c34;
+  background-color: #ffffff;
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Center items along the main axis (vertically in this case) */
+  color: white;
+}
+
+.logo-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.content-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
 .App-link {
@@ -34,9 +56,10 @@
   border: 1px solid #e1e8ed;
   border-radius: 5px;
   padding: 10px;
-  width: 300px;
+  width: 500px;
   display: flex;
   flex-direction: column;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow here */
 }
 
 .tweet-form textarea {
@@ -44,7 +67,7 @@
   padding: 10px;
   resize: none;
   outline: none;
-  font-family: Arial, sans-serif;
+  font-family: 'AnonPro', monospace; /* Custom font here as well */
   font-size: 16px;
   line-height: 20px;
 }
@@ -67,6 +90,33 @@
   background-color: #0c7abf;
 }
 
+.generated-tweet-container {
+  width: 33%; /* Set to 100% for better mobile compatibility */
+  margin: 0 auto;
+  text-align: center;
+  padding-top: 20px;
+}
+
+/* Media query for small screens (max-width: 768px) */
+@media only screen and (max-width: 768px) {
+  .tweet-form {
+    width: 80%; /* Set to 100% for full width on mobile */
+    margin: 0 auto; /* Center the form */
+  }
+
+  .generated-tweet-container {
+    width: 80%; /* Set to 100% for full width on mobile */
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .App-logo {
+    height: 10vmin;
+    margin-bottom: 30px;
+    pointer-events: none;
+  }
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
@@ -74,10 +124,4 @@
   to {
     transform: rotate(360deg);
   }
-}
-
-.error-text {
-  color: red;
-  font-size: 16px;
-  margin-top: 5px;
 }

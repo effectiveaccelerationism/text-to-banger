@@ -23,7 +23,7 @@ OPENAI_API_KEY=your-openai-key
 ```
 Then, run the server with
 ```
-cd apiserver
+cd api
 python -m venv env
 pip install -r requirements.txt
 source env/bin/activate # on Windows use `env\Scripts\activate`
@@ -37,4 +37,10 @@ NOTE: You must have both the webapp and the apiserver running in two separate te
 - [ ] Script getting the top 100 tweets from the account the user is following
 - [ ] Script augmenting data rewriting the bangers in 10 boring ways through the OAI API
 - [ ] Fine-tuning script taking as input the boring bangers and outputting the bangers
-- [ ] Local API server taking as input the user's proposed tweet and outputting the banger
+
+## API TODOs
+- [x] Create OAI API server
+- [ ] Add Custom API server with finetuned model
+
+## WebApp TODOs
+- [ ] Add dark mode and set it as default
