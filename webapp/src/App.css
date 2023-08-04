@@ -31,7 +31,6 @@ body, p, button {
   display: flex;
   flex-direction: column;
   justify-content: center; /* Center items along the main axis (vertically in this case) */
-  align-items: center; /* Center items along the cross axis (horizontally in this case) */
   color: white;
 }
 
@@ -39,7 +38,6 @@ body, p, button {
   width: 100%;
   display: flex;
   justify-content: center;
-  margin-top: 100px; /* Adjust as per your need */
 }
 
 .content-container {
@@ -96,20 +94,20 @@ body, p, button {
   width: 33%; /* Set to 100% for better mobile compatibility */
   margin: 0 auto;
   text-align: center;
+  padding-top: 20px;
 }
 
 /* Media query for small screens (max-width: 768px) */
 @media only screen and (max-width: 768px) {
   .tweet-form {
-    width: 90%; /* Increase width for mobile */
+    width: 80%; /* Set to 100% for full width on mobile */
     margin: 0 auto; /* Center the form */
   }
 
   .generated-tweet-container {
-    width: 90%; /* Set to 100% for better mobile compatibility */
+    width: 80%; /* Set to 100% for full width on mobile */
     margin: 0 auto;
     text-align: center;
-    /* padding: 0 20px; Add some padding for smaller screens */
   }
 
   .App-logo {
