@@ -33,7 +33,7 @@ class MyServer(BaseHTTPRequestHandler):
         return
     def do_POST(self):
         url = self.path
-        if(url == '/generateBanger'):
+        if(url == '/generate-banger'):
             content_length = int(self.headers['Content-Length'])
             post_data = self.rfile.read(content_length)
             post_data = post_data.decode('utf-8')
