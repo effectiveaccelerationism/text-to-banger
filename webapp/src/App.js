@@ -13,7 +13,7 @@ function App() {
   }
 
   const handleGenerateTweet = () => {
-    const tweet = axios.post('http://localhost:5000/generateBanger', {originalText: tweetIdea}).then((response) => {
+    const tweet = axios.post('http://localhost:8080/generateBanger', {originalText: tweetIdea}).then((response) => {
       setGeneratedTweet(`${response.data}`);
       setErrorMessage(null);
     }).catch((error) => {

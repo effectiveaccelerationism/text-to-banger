@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 # Load environment variables
 load_dotenv()
 
-api_key = os.environ.get('OPENAI_APIKEY')
+api_key = os.getenv("OPENAI_API_KEY")
 openai.api_key = api_key
 hostName = "localhost"
 serverPort = 8080
