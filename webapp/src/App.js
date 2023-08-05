@@ -47,6 +47,18 @@ function App() {
     }
   };  
 
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    handleGenerateTweet();
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      handleGenerateTweet();
+    }
+  };
+
   return (
     <div className="App">
       <button className="mode-toggle" onClick={toggleDarkMode}>
@@ -57,17 +69,18 @@ function App() {
           {/* <img src={logo} className="App-logo" alt="logo" /> */}
           <h1 className="text-logo">text-to-banger</h1>
         </div>
-        <div className="content-container"> {/* This new div wraps both the form and the generated tweet container */}
-          <div className="tweet-form">
+        <div className="content-container">
+          <form onSubmit={handleFormSubmit} className="tweet-form"> {/* Wrap everything in a form and attach submit handler */}
             <textarea
               id="tweetIdea"
               value={tweetIdea}
               onChange={handleTweetIdeaChange}
+              onKeyDown={handleKeyDown}
               placeholder="What's happening?"
               rows="4"
             />
-            <button className="tweet-button" onClick={handleGenerateTweet} disabled={isLoading}>Generate Banger Tweet</button>
-          </div>
+            <button className="tweet-button" type="submit" disabled={isLoading}>Generate Banger Tweet</button> {/* set type to submit */}
+          </form>
           {isLoading && <p>generating a banger...</p>}
           <div className="generated-tweet-container">
             {generatedTweet && (
