@@ -1,6 +1,7 @@
-from http.server import BaseHTTPRequestHandler, HTTPServer
+import re
 import openai, json, os
 from dotenv import load_dotenv
+from http.server import BaseHTTPRequestHandler, HTTPServer
 
 # Load environment variables
 load_dotenv()
@@ -20,6 +21,15 @@ def generate_banger(tweet_text):
         temperature=0.7,  # Adjust the temperature for more randomness (0.2 to 1.0)
     )
     banger_tweet = response.choices[0].text.strip()
+
+    # Remove hashtags
+    banger_tweet = re.sub(r'#\S+', '', banger_tweet)  # Remove hashtags
+
+    # Remove emojis
+    banger_tweet = banger_tweet.encode('ascii', 'ignore').decode('ascii')
+
+    # Remove dot at the end if it exists
+    banger_tweet = re.sub(r'\.$', '', banger_tweet)
     
     if not banger_tweet:
         return None
