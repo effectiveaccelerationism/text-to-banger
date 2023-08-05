@@ -16,7 +16,6 @@ function App() {
   const handleGenerateTweet = () => {
     setIsLoading(true);
     setGeneratedTweet(null);
-    // Send the tweet idea to the server to generate a tweet
     axios.post('http://localhost:8080/generate-banger', {originalText: tweetIdea})
     .then(response => {
       if (response.status !== 200) {
@@ -25,11 +24,16 @@ function App() {
       return response.data;
     })
     .then(data => {
-      setGeneratedTweet(data);
+      if (data === 'Error generating banger tweet.') {
+        setGeneratedTweet("Error generating banger tweet.");
+      } else {
+        setGeneratedTweet(data);
+      }
       setIsLoading(false);
     })
     .catch(error => {
       console.error('An error occurred:', error);
+      setGeneratedTweet("Error generating banger tweet.");
       setIsLoading(false);
     });
   };
@@ -47,6 +51,18 @@ function App() {
     }
   };  
 
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    handleGenerateTweet();
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      handleGenerateTweet();
+    }
+  };
+
   return (
     <div className="App">
       <button className="mode-toggle" onClick={toggleDarkMode}>
@@ -57,30 +73,33 @@ function App() {
           {/* <img src={logo} className="App-logo" alt="logo" /> */}
           <h1 className="text-logo">text-to-banger</h1>
         </div>
-        <div className="content-container"> {/* This new div wraps both the form and the generated tweet container */}
-          <div className="tweet-form">
+        <div className="content-container">
+          <form onSubmit={handleFormSubmit} className="tweet-form"> {/* Wrap everything in a form and attach submit handler */}
             <textarea
               id="tweetIdea"
               value={tweetIdea}
               onChange={handleTweetIdeaChange}
+              onKeyDown={handleKeyDown}
               placeholder="What's happening?"
               rows="4"
             />
-            <button className="tweet-button" onClick={handleGenerateTweet} disabled={isLoading}>Generate Banger Tweet</button>
-          </div>
+            <button className="tweet-button" type="submit" disabled={isLoading}>Generate Banger Tweet</button> {/* set type to submit */}
+          </form>
           {isLoading && <p>generating a banger...</p>}
           <div className="generated-tweet-container">
             {generatedTweet && (
               <>
-                <p>{generatedTweet}</p>
-                <a
-                  className="tweet-button"
-                  href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(generatedTweet)}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Post Banger Tweet
-                </a>
+                <p style={{color: generatedTweet.startsWith("Error") ? 'darkred' : 'inherit'}}>{generatedTweet}</p>
+                {!generatedTweet.startsWith("Error") && (
+                  <a
+                    className="tweet-button"
+                    href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(generatedTweet)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Post Banger Tweet
+                  </a>
+                )}
               </>
             )}
           </div>

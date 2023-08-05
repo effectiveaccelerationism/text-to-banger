@@ -6,7 +6,6 @@
 body, p, button {
   font-family: 'AnonPro', monospace;
   color: var(--text-color);
-  background-color: var(--background-color);
 }
 
 .text-logo {
