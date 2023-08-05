@@ -1,18 +1,19 @@
 @font-face {
-  font-family: 'AnonPro'; /* You can name it anything */
-  src: url('../public/fonts/AnonymousPro-Bold.ttf') format('truetype'); /* Update the path and format */
+  font-family: 'AnonPro';
+  src: url('../public/fonts/AnonymousPro-Bold.ttf') format('truetype');
 }
 
 body, p, button {
-  font-family: 'AnonPro', monospace; /* Use the custom font as the main font and fall back to a monospace font */
-  color: #000000;
+  font-family: 'AnonPro', monospace;
+  color: var(--text-color);
+  background-color: var(--background-color);
 }
 
 .text-logo {
-  font-family: 'AnonPro', monospace; /* Use the custom font as the main font and fall back to a monospace font */
+  font-family: 'AnonPro', monospace;
   font-size: 40px;
   font-weight: bold;
-  color: #1da1f2;
+  color: var(--primary-color);
 }
 
 .App {
@@ -26,12 +27,12 @@ body, p, button {
 }
 
 .App-header {
-  background-color: #ffffff;
+  background-image: var(--panel-background);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: center; /* Center items along the main axis (vertically in this case) */
-  color: white;
+  justify-content: center;
+  color: var(--text-color);
 }
 
 .logo-container {
@@ -48,18 +49,18 @@ body, p, button {
 }
 
 .App-link {
-  color: #61dafb;
+  color: var(--primary-color);
 }
 
 .tweet-form {
-  background: #ffffff;
-  border: 1px solid #e1e8ed;
+  background: var(--panel-background);
+  border: 1px solid var(--primary-color);
   border-radius: 5px;
   padding: 10px;
   width: 500px;
   display: flex;
   flex-direction: column;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow here */
+  box-shadow: 0px 10px 10px 2px rgba(0, 0, 0, 0.3);
 }
 
 .tweet-form textarea {
@@ -67,15 +68,17 @@ body, p, button {
   padding: 10px;
   resize: none;
   outline: none;
-  font-family: 'AnonPro', monospace; /* Custom font here as well */
+  font-family: 'AnonPro', monospace;
   font-size: 16px;
   line-height: 20px;
+  background-color: var(--panel-background);
+  color: var(--text-color);
 }
 
 .tweet-button {
-  background-color: #1da1f2;
+  background-color: var(--primary-color);
   border: none;
-  color: white;
+  color: var(--text-color);
   padding: 10px;
   text-align: center;
   text-decoration: none;
@@ -87,25 +90,24 @@ body, p, button {
 }
 
 .tweet-button:hover {
-  background-color: #0c7abf;
+  background-color: rgba(29, 161, 242, 0.6);
 }
 
 .generated-tweet-container {
-  width: 33%; /* Set to 100% for better mobile compatibility */
+  width: 33%;
   margin: 0 auto;
   text-align: center;
   padding-top: 20px;
 }
 
-/* Media query for small screens (max-width: 768px) */
 @media only screen and (max-width: 768px) {
   .tweet-form {
-    width: 80%; /* Set to 100% for full width on mobile */
-    margin: 0 auto; /* Center the form */
+    width: 80%;
+    margin: 0 auto;
   }
 
   .generated-tweet-container {
-    width: 80%; /* Set to 100% for full width on mobile */
+    width: 80%;
     margin: 0 auto;
     text-align: center;
   }
@@ -124,4 +126,43 @@ body, p, button {
   to {
     transform: rotate(360deg);
   }
+} 
+
+.mode-toggle {
+  background-color: var(--primary-color);
+  border: none;
+  color: var(--text-color);
+  padding: 10px; /* Makes it a bit larger */
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px; /* Adjust the size of the emoji/icon */
+  cursor: pointer;
+  border-radius: 50%; /* Makes it round */
+  position: fixed; /* Positions it on the screen irrespective of the scroll position */
+  top: 20px; /* Position from the top */
+  right: 20px; /* Position from the right */
+  width: 40px; /* Width of the button */
+  height: 40px; /* Height of the button */
+  line-height: 20px; /* Adjust the vertical alignment of the emoji/icon */
+  transition: background-color 0.3s ease;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); /* A little shadow for depth */
+}
+
+.mode-toggle:hover {
+  background-color: rgba(29, 161, 242, 0.6);
+}
+
+:root {
+  --primary-color: rgba(29, 161, 242, 0.8);
+  --dark-background-color: #1f2226;
+  --light-background-color: #ffffff;
+  --dark-text-color: #fff;
+  --light-text-color: #000;
+  --panel-background: linear-gradient(to bottom right, #1f2226, #383c3f);
+  --light-panel-background: linear-gradient(to bottom right, #fff, #e6e6e6);
+
+  /* Default mode: Dark Mode */
+  --background-color: var(--dark-background-color);
+  --text-color: var(--dark-text-color);
 }
