@@ -34,6 +34,15 @@ body, p, button {
   color: white;
 }
 
+.App-footer {
+  background-color: #ffffff;
+  display: flex;
+  padding: 20px;
+
+  justify-content: center; /* Center items along the main axis (vertically in this case) */
+  color: white;
+}
+
 .logo-container {
   width: 100%;
   display: flex;
@@ -95,6 +104,29 @@ body, p, button {
   margin: 0 auto;
   text-align: center;
   padding-top: 20px;
+}
+
+.dark-mode {
+  background-color: #333; /* or another color that you like for dark mode */
+  color: white; /* sets the text color to white */
+}
+
+/* You can add additional styles specific to dark mode here, for example */
+.dark-mode .App-header {
+  background-color: #444; /* adjust the header background in dark mode */
+}
+
+.dark-mode .generated-tweet-container p {
+  color: white; /* sets the text color to white for the generated tweet in dark mode */
+}
+
+/* If you want to change the link color in dark mode as well */
+.dark-mode .generated-tweet-container a {
+  color: white; /* sets the text color to white for the generated tweet link in dark mode */
+}
+
+.dark-mode .tweet-button {
+  background-color: #555; /* adjust the button styling in dark mode */
 }
 
 /* Media query for small screens (max-width: 768px) */

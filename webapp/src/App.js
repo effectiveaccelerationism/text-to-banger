@@ -7,10 +7,16 @@ function App() {
   const [tweetIdea, setTweetIdea] = useState('');
   const [generatedTweet, setGeneratedTweet] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [darkMode, setDarkMode] = useState(true); 
+
+  const toggleDarkMode = () => {
+    setDarkMode(!darkMode);
+  };
 
   const handleTweetIdeaChange = (e) => {
     setTweetIdea(e.target.value);
   }
+
 
   const handleGenerateTweet = () => {
     setIsLoading(true);
@@ -34,7 +40,8 @@ function App() {
   };
 
   return (
-    <div className="App">
+    <div className={`App ${darkMode ? 'dark-mode' : ''}`}>
+        <div className="App-container">
       <header className="App-header">
         <div className="logo-container">
           {/* <img src={logo} className="App-logo" alt="logo" /> */}
@@ -69,6 +76,12 @@ function App() {
           </div>
         </div>
       </header>
+      <footer className="App-footer"> {/* Footer containing the dark mode button */}
+        <button onClick={toggleDarkMode}>
+          {darkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+        </button>
+      </footer>
+      </div>
     </div>
   );
 }
