@@ -5,20 +5,19 @@
 
 body, p, button {
   font-family: 'AnonPro', monospace;
-  color: #FFFFFF;
-  background: #000000;
+  color: var(--text-color);
+  background-color: var(--background-color);
 }
 
 .text-logo {
   font-family: 'AnonPro', monospace;
   font-size: 40px;
   font-weight: bold;
-  color: #1da1f2;
+  color: var(--primary-color);
 }
 
 .App {
   text-align: center;
-  background: #000000;
 }
 
 .App-logo {
@@ -28,12 +27,12 @@ body, p, button {
 }
 
 .App-header {
-  background-color: #000000;
+  background-image: var(--panel-background);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: center; 
-  color: white;
+  justify-content: center;
+  color: var(--text-color);
 }
 
 .logo-container {
@@ -50,19 +49,18 @@ body, p, button {
 }
 
 .App-link {
-  color: #61dafb;
+  color: var(--primary-color);
 }
 
 .tweet-form {
-  background: #1A1A1B;
-  border: 1px solid #1A1A1B;
+  background: var(--panel-background);
+  border: 1px solid var(--primary-color);
   border-radius: 5px;
   padding: 10px;
   width: 500px;
   display: flex;
   flex-direction: column;
-  box-shadow: 0px 4px 8px rgba(255, 255, 255, 0.1);
-  color: #FFFFFF;
+  box-shadow: 0px 10px 10px 2px rgba(0, 0, 0, 0.3);
 }
 
 .tweet-form textarea {
@@ -73,14 +71,14 @@ body, p, button {
   font-family: 'AnonPro', monospace;
   font-size: 16px;
   line-height: 20px;
-  background: #1A1A1B;
-  color: #FFFFFF;
+  background-color: var(--panel-background);
+  color: var(--text-color);
 }
 
 .tweet-button {
-  background-color: #1da1f2;
+  background-color: var(--primary-color);
   border: none;
-  color: white;
+  color: var(--text-color);
   padding: 10px;
   text-align: center;
   text-decoration: none;
@@ -92,7 +90,7 @@ body, p, button {
 }
 
 .tweet-button:hover {
-  background-color: #0c7abf;
+  background-color: rgba(29, 161, 242, 0.6);
 }
 
 .generated-tweet-container {
@@ -100,14 +98,12 @@ body, p, button {
   margin: 0 auto;
   text-align: center;
   padding-top: 20px;
-  color: #FFFFFF;
-  background: #000000;
 }
 
 @media only screen and (max-width: 768px) {
   .tweet-form {
     width: 80%;
-    margin: 0 auto; 
+    margin: 0 auto;
   }
 
   .generated-tweet-container {
@@ -130,4 +126,11 @@ body, p, button {
   to {
     transform: rotate(360deg);
   }
+} 
+
+:root {
+  --primary-color: rgba(29, 161, 242, 0.8);
+  --background-color: #1f2226; /* updated to a dark gray */
+  --text-color: #fff;
+  --panel-background: linear-gradient(to bottom right, #1f2226, #383c3f); /* gradient theme */
 }
