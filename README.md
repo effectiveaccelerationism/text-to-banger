@@ -43,4 +43,6 @@ NOTE: You must have both the webapp and the apiserver running in two separate te
 - [ ] Add Custom API server with finetuned model
 
 ## WebApp TODOs
-- [ ] Add dark mode and set it as default
+- [x] Add dark mode and set it as default
+- [ ] Get BANGER OAI API prompt
+- [ ] Deploy webapp

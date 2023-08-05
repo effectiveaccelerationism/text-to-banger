@@ -1,6 +1,7 @@
-from http.server import BaseHTTPRequestHandler, HTTPServer
+import re
 import openai, json, os
 from dotenv import load_dotenv
+from http.server import BaseHTTPRequestHandler, HTTPServer
 
 # Load environment variables
 load_dotenv()
@@ -12,7 +13,7 @@ serverPort = 8080
 
 def generate_banger(tweet_text):
     print(f"Generating banger for tweet: '{tweet_text}'")
-    prompt = f"Turn this tweet into a solid banger with no hashtags, where a banger is a tweet of higher quality compared to most others, usually in comedic value and wording: '{tweet_text}'"
+    prompt = f"Turn this tweet into a solid banger, where a banger is a tweet of shocking and mildly psychotic comedic value, that's prone to go viral: '{tweet_text}'"
     response = openai.Completion.create(
         engine="text-davinci-003",  # You can choose a different engine based on your subscription
         prompt=prompt,
@@ -20,6 +21,22 @@ def generate_banger(tweet_text):
         temperature=0.7,  # Adjust the temperature for more randomness (0.2 to 1.0)
     )
     banger_tweet = response.choices[0].text.strip()
+
+    # Remove hashtags
+    banger_tweet = re.sub(r'#\S+', '', banger_tweet)  # Remove hashtags
+
+    # Remove emojis
+    # banger_tweet = banger_tweet.encode('ascii', 'ignore').decode('ascii')
+
+    # Remove starting and ending single and double quotes
+    banger_tweet = re.sub(r'^"|"$|^\'|\'$', '', banger_tweet)
+
+    # Remove dot at the end if they exists
+    banger_tweet = re.sub(r'\.$', '', banger_tweet.strip())
+    
+    if not banger_tweet:
+        return None
+
     print(f"Generated banger: '{banger_tweet}'")
     return banger_tweet
 
@@ -40,7 +57,13 @@ class MyServer(BaseHTTPRequestHandler):
             parsedData = json.loads(post_data)
             originalText = parsedData['originalText']
             banger_tweet = generate_banger(originalText)
-            self.send_response(200)
+            
+            if banger_tweet:
+                self.send_response(200)
+            else:
+                self.send_response(500)
+                banger_tweet = "Error generating banger tweet."
+
             self.send_header("Content-type", "text/html")
             self.send_header('Access-Control-Allow-Origin', '*')
             self.end_headers()
