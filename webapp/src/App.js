@@ -7,6 +7,7 @@ function App() {
   const [tweetIdea, setTweetIdea] = useState('');
   const [generatedTweet, setGeneratedTweet] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [darkMode, setDarkMode] = useState(true);
 
   const handleTweetIdeaChange = (e) => {
     setTweetIdea(e.target.value);
@@ -33,8 +34,24 @@ function App() {
     });
   };
 
+  const toggleDarkMode = () => {
+    setDarkMode(!darkMode);
+    if (darkMode) {
+      document.documentElement.style.setProperty('--background-color', 'var(--light-background-color)');
+      document.documentElement.style.setProperty('--text-color', 'var(--light-text-color)');
+      document.documentElement.style.setProperty('--panel-background', 'var(--light-panel-background)');
+    } else {
+      document.documentElement.style.setProperty('--background-color', 'var(--dark-background-color)');
+      document.documentElement.style.setProperty('--text-color', 'var(--dark-text-color)');
+      document.documentElement.style.setProperty('--panel-background', 'var(--dark-panel-background)');
+    }
+  };  
+
   return (
     <div className="App">
+      <button className="mode-toggle" onClick={toggleDarkMode}>
+        {darkMode ? "🌙" : "☀️"}
+      </button>
       <header className="App-header">
         <div className="logo-container">
           {/* <img src={logo} className="App-logo" alt="logo" /> */}

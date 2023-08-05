@@ -128,9 +128,41 @@ body, p, button {
   }
 } 
 
+.mode-toggle {
+  background-color: var(--primary-color);
+  border: none;
+  color: var(--text-color);
+  padding: 10px; /* Makes it a bit larger */
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px; /* Adjust the size of the emoji/icon */
+  cursor: pointer;
+  border-radius: 50%; /* Makes it round */
+  position: fixed; /* Positions it on the screen irrespective of the scroll position */
+  top: 20px; /* Position from the top */
+  right: 20px; /* Position from the right */
+  width: 40px; /* Width of the button */
+  height: 40px; /* Height of the button */
+  line-height: 20px; /* Adjust the vertical alignment of the emoji/icon */
+  transition: background-color 0.3s ease;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); /* A little shadow for depth */
+}
+
+.mode-toggle:hover {
+  background-color: rgba(29, 161, 242, 0.6);
+}
+
 :root {
   --primary-color: rgba(29, 161, 242, 0.8);
-  --background-color: #1f2226; /* updated to a dark gray */
-  --text-color: #fff;
-  --panel-background: linear-gradient(to bottom right, #1f2226, #383c3f); /* gradient theme */
+  --dark-background-color: #1f2226;
+  --light-background-color: #ffffff;
+  --dark-text-color: #fff;
+  --light-text-color: #000;
+  --panel-background: linear-gradient(to bottom right, #1f2226, #383c3f);
+  --light-panel-background: linear-gradient(to bottom right, #fff, #e6e6e6);
+
+  /* Default mode: Dark Mode */
+  --background-color: var(--dark-background-color);
+  --text-color: var(--dark-text-color);
 }
