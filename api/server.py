@@ -13,7 +13,7 @@ serverPort = 8080
 
 def generate_banger(tweet_text):
     print(f"Generating banger for tweet: '{tweet_text}'")
-    prompt = f"Turn this tweet into a solid banger with no hashtags, where a banger is a tweet of higher quality compared to most others, usually in comedic value and wording: '{tweet_text}'"
+    prompt = f"Turn this tweet into a solid banger, where a banger is a tweet of shocking and mildly psychotic comedic value, that's prone to go viral: '{tweet_text}'"
     response = openai.Completion.create(
         engine="text-davinci-003",  # You can choose a different engine based on your subscription
         prompt=prompt,
@@ -26,10 +26,13 @@ def generate_banger(tweet_text):
     banger_tweet = re.sub(r'#\S+', '', banger_tweet)  # Remove hashtags
 
     # Remove emojis
-    banger_tweet = banger_tweet.encode('ascii', 'ignore').decode('ascii')
+    # banger_tweet = banger_tweet.encode('ascii', 'ignore').decode('ascii')
 
-    # Remove dot at the end if it exists
-    banger_tweet = re.sub(r'\.$', '', banger_tweet)
+    # Remove starting and ending single and double quotes
+    banger_tweet = re.sub(r'^"|"$|^\'|\'$', '', banger_tweet)
+
+    # Remove dot at the end if they exists
+    banger_tweet = re.sub(r'\.$', '', banger_tweet.strip())
     
     if not banger_tweet:
         return None
