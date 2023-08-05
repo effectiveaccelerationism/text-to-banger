@@ -20,6 +20,10 @@ def generate_banger(tweet_text):
         temperature=0.7,  # Adjust the temperature for more randomness (0.2 to 1.0)
     )
     banger_tweet = response.choices[0].text.strip()
+    
+    if not banger_tweet:
+        return None
+
     print(f"Generated banger: '{banger_tweet}'")
     return banger_tweet
 
@@ -40,7 +44,13 @@ class MyServer(BaseHTTPRequestHandler):
             parsedData = json.loads(post_data)
             originalText = parsedData['originalText']
             banger_tweet = generate_banger(originalText)
-            self.send_response(200)
+            
+            if banger_tweet:
+                self.send_response(200)
+            else:
+                self.send_response(500)
+                banger_tweet = "Error generating banger tweet."
+
             self.send_header("Content-type", "text/html")
             self.send_header('Access-Control-Allow-Origin', '*')
             self.end_headers()

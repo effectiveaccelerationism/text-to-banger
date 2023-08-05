@@ -16,7 +16,6 @@ function App() {
   const handleGenerateTweet = () => {
     setIsLoading(true);
     setGeneratedTweet(null);
-    // Send the tweet idea to the server to generate a tweet
     axios.post('http://localhost:8080/generate-banger', {originalText: tweetIdea})
     .then(response => {
       if (response.status !== 200) {
@@ -25,11 +24,16 @@ function App() {
       return response.data;
     })
     .then(data => {
-      setGeneratedTweet(data);
+      if (data === 'Error generating banger tweet.') {
+        setGeneratedTweet("Error generating banger tweet.");
+      } else {
+        setGeneratedTweet(data);
+      }
       setIsLoading(false);
     })
     .catch(error => {
       console.error('An error occurred:', error);
+      setGeneratedTweet("Error generating banger tweet.");
       setIsLoading(false);
     });
   };
@@ -85,15 +89,17 @@ function App() {
           <div className="generated-tweet-container">
             {generatedTweet && (
               <>
-                <p>{generatedTweet}</p>
-                <a
-                  className="tweet-button"
-                  href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(generatedTweet)}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Post Banger Tweet
-                </a>
+                <p style={{color: generatedTweet.startsWith("Error") ? 'darkred' : 'inherit'}}>{generatedTweet}</p>
+                {!generatedTweet.startsWith("Error") && (
+                  <a
+                    className="tweet-button"
+                    href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(generatedTweet)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Post Banger Tweet
+                  </a>
+                )}
               </>
             )}
           </div>
