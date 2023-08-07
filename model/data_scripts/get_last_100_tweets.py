@@ -32,8 +32,8 @@ def get_last_100_tweets(user_id):
     
     # Get parameters
     params = {
-        "tweet.fields": "created_at",
-        "max_results": 100  # Get the last 100 tweets
+        "tweet.fields": "created_at,public_metrics",
+        "max_results": 10  # Get the last 100 tweets
     }
     
     # Set headers
@@ -58,18 +58,21 @@ def main():
     tweets_data = []
 
     for username in usernames:
+        print(f"Getting tweets for {username}")
         user_id = get_user_id_from_username(username)
         tweets = get_last_100_tweets(user_id)
         
         # Extract required fields from the response (or modify as per requirement)
         for tweet in tweets.get('data', []):
-            tweets_data.append([username, tweet['id'], tweet['text'], tweet['created_at']])
+            like_count = tweet['public_metrics']['like_count']
+            tweets_data.append([username, tweet['id'], tweet['text'], like_count, tweet['created_at']])
 
     # Writing the tweets to an output CSV
     with open('data/last_100_tweets_from_bangerers.csv', 'w', newline='') as outfile:
         writer = csv.writer(outfile)
-        writer.writerow(["username", "tweet_id", "tweet_text", "created_at"])  # CSV headers
+        writer.writerow(["username", "tweet_id", "tweet_text", "like_count", "created_at"])  # CSV headers
         writer.writerows(tweets_data)
+
 
 if __name__ == "__main__":
     main()
