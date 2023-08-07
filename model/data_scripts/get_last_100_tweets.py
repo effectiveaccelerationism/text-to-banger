@@ -7,6 +7,10 @@ from dotenv import load_dotenv
 load_dotenv()
 bearer_token = os.environ.get("TWITTER_BEARER_TOKEN")
 
+# Ensure the bearer token is provided
+if not bearer_token:
+    raise ValueError("Please set your BEARER_TOKEN as an environment variable.")
+
 def get_user_id_from_username(username):
     url = f"https://api.twitter.com/2/users/by/username/{username}"
     headers = {
