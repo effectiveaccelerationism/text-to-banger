@@ -1,5 +1,6 @@
 .env
 env
 .DS_Store
-model/data/
+model/data/*
+!model/data/banger_accounts.csv
 nodemodules

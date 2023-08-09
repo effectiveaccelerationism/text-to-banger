@@ -33,8 +33,9 @@ python server.py
 NOTE: You must have both the webapp and the apiserver running in two separate terminal instances to use the app.
 
 ## Model TODOs
-- [ ] Script getting the account the user is following
-- [ ] Script getting the top 100 tweets from the account the user is following
+- [x] Get down a list of banger accounts
+- [ ] Script getting the last 100 text tweets from the account in the banger accounts list
+- [ ] Script filtering the tweets by a set likes/followers ratio TBD
 - [ ] Script augmenting data rewriting the bangers in 10 boring ways through the OAI API
 - [ ] Fine-tuning script taking as input the boring bangers and outputting the bangers
 
