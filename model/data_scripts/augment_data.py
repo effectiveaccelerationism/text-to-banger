@@ -23,6 +23,9 @@ def get_boring_versions(tweet):
                 {"role": "user", "content": f"Transform this viral tweet into a boring, simple and uninspired version: '{tweet}'"}
             ])
         
+        # Get the boring version from the response
+        boring_versions.append(response.choices[0].message.content)
+        
     if len(boring_versions) == 0:
         boring_versions.append("")
 
@@ -30,7 +33,7 @@ def get_boring_versions(tweet):
 
 def create_json(data):
     """Function to write the data into a json file."""
-    with open('data/boring_tweets.json', 'w') as json_file:
+    with open('data/bangers_w_boring_vers.json', 'w') as json_file:
         json.dump(data, json_file, indent=4)
 
 def main():
