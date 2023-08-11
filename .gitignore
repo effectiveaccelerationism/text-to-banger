@@ -4,4 +4,5 @@ env
 model/data/*
 !model/data/banger_accounts.csv
 !model/data/banger_accounts_w_followers.csv
+!model/data/last_100_tweets_from_bangerers.csv
 nodemodules
