@@ -3,4 +3,5 @@ env
 .DS_Store
 model/data/*
 !model/data/banger_accounts.csv
+!model/data/banger_accounts_w_followers.csv
 nodemodules
