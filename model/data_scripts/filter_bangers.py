@@ -10,7 +10,7 @@ accounts_df = pd.read_csv('data/banger_accounts_w_followers.csv')
 merged_df = pd.merge(tweets_df, accounts_df, on='username', how='left')
 
 # Filter out tweets with links, replies, and RTs
-merged_df = merged_df[~merged_df['text'].str.contains('http://|https://|@|RT ', na=False)]
+merged_df = merged_df[~merged_df['tweet_text'].str.contains('http://|https://|@|RT ', na=False)]
 
 # Define a followers/likes ratio
 RATIO = 10  # Example ratio
