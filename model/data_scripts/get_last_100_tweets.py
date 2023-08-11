@@ -32,8 +32,9 @@ def get_last_100_tweets(user_id):
     
     # Get parameters
     params = {
-        "tweet.fields": "created_at,public_metrics",
-        "max_results": 10  # Get the last 100 tweets
+        "tweet.fields": "created_at,public_metrics,attachments",  # Added 'attachments' to check for media attachments
+        "exclude": "retweets,replies",  # Exclude retweets and replies
+        "max_results": 100  # Get the last 100 tweets
     }
     
     # Set headers
@@ -50,9 +51,10 @@ def get_last_100_tweets(user_id):
     return response.json()
 
 def main():
-    with open('data/banger_accounts.csv', 'r') as infile:
+    with open('data/banger_accounts_w_followers.csv', 'r') as infile:
         reader = csv.reader(infile)
-        # Assuming the first column contains usernames
+        # Skip the first row as it contains the header
+        next(reader)
         usernames = [row[0] for row in reader]
 
     tweets_data = []
@@ -64,6 +66,10 @@ def main():
         
         # Extract required fields from the response (or modify as per requirement)
         for tweet in tweets.get('data', []):
+            # Skip tweets with attachments
+            if "attachments" in tweet:
+                continue
+
             like_count = tweet['public_metrics']['like_count']
             tweets_data.append([username, tweet['id'], tweet['text'], like_count, tweet['created_at']])
 
@@ -72,7 +78,6 @@ def main():
         writer = csv.writer(outfile)
         writer.writerow(["username", "tweet_id", "tweet_text", "like_count", "created_at"])  # CSV headers
         writer.writerows(tweets_data)
-
 
 if __name__ == "__main__":
     main()
