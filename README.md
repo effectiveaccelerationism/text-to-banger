@@ -34,8 +34,8 @@ NOTE: You must have both the webapp and the apiserver running in two separate te
 
 ## Model TODOs
 - [x] Get down a list of banger accounts
-- [ ] Script getting the last 100 text tweets from the account in the banger accounts list
-- [ ] Script filtering the tweets by a set likes/followers ratio TBD
+- [x] Script getting the last 100 text tweets from the account in the banger accounts list
+- [x] Script filtering the tweets by a set likes/followers ratio 
 - [ ] Script augmenting data rewriting the bangers in 10 boring ways through the OAI API
 - [ ] Fine-tuning script taking as input the boring bangers and outputting the bangers
 
