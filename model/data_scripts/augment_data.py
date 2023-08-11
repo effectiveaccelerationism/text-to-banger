@@ -3,6 +3,7 @@ import csv
 import json
 import openai
 from dotenv import load_dotenv
+from tqdm import tqdm
 
 # Load environment variables from .env file
 load_dotenv()
@@ -13,7 +14,7 @@ openai.api_key = os.environ.get("OPENAI_API_KEY")
 def get_boring_versions(tweet):
     """Function that uses OpenAI's GPT-3 to generate boring versions of a given tweet."""
     boring_versions = []
-    for i in range(10):
+    for i in range(3):
         # Make a call to the OpenAI API
         response = openai.ChatCompletion.create(
             model="gpt-3.5-turbo",
@@ -40,10 +41,11 @@ def main():
     with open('data/filtered_banger_tweets.csv', 'r') as csv_file:
         csv_reader = csv.reader(csv_file)
         next(csv_reader, None)  # skip the headers
-        for row in csv_reader:
+
+        # Wrap the csv_reader with tqdm for a progress bar
+        for row in tqdm(list(csv_reader), desc="Processing tweets"):
             # Assuming that the tweet is in the first column
             tweet = row[2]
-            print(tweet + '\n')
             # Get the boring versions for the tweet
             boring_versions = get_boring_versions(tweet)
             # Add to the dict
