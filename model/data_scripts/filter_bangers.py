@@ -13,10 +13,10 @@ merged_df = pd.merge(tweets_df, accounts_df, on='username', how='left')
 merged_df = merged_df[~merged_df['tweet_text'].str.contains('http://|https://|@|RT ', na=False)]
 
 # Define a followers/likes ratio
-RATIO = 0.0084 # Getting aproximately 1/4 of the data
+RATIO = 0.0168 # Getting aproximately 1/4 of the data
 merged_df = merged_df[(merged_df['like_count'] / merged_df['followers']) > RATIO]
 
 # Save the filtered data back to a new CSV
-merged_df.to_csv('data/filtered_tweets.csv', index=False)
+merged_df.to_csv('data/filtered_banger_tweets.csv', index=False)
 
 print("Filtered tweets saved to 'data/filtered_tweets.csv'")
