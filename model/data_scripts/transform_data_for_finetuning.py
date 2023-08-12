@@ -41,6 +41,6 @@ def transform_data(input_file, output_file):
             f.write(json.dumps(item) + '\n')
 
 if __name__ == '__main__':
-    input_filepath = 'data/bangers_w_boring_vers.json'
-    output_filepath = 'data/bangers_finetuning_data.json'
+    input_filepath = 'data/processed/bangers_w_boring_vers.json'
+    output_filepath = 'data/final/bangers_finetuning_data.json'
     transform_data(input_filepath, output_filepath)

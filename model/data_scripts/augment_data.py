@@ -40,7 +40,7 @@ def get_boring_versions(tweet):
 
 def create_json(data):
     """Function to write the data into a json file."""
-    with open('data/bangers_w_boring_vers.json', 'w') as json_file:
+    with open('data/processed/bangers_w_boring_vers.json', 'w') as json_file:
         json.dump(data, json_file, indent=4)
 
 def main():
@@ -48,7 +48,7 @@ def main():
     tweet_dict = {}
 
     # Open the csv file and read the tweets
-    with open('data/filtered_banger_tweets.csv', 'r') as csv_file:
+    with open('data/processed/filtered_banger_tweets.csv', 'r') as csv_file:
         csv_reader = csv.reader(csv_file)
         next(csv_reader, None)  # skip the headers
 

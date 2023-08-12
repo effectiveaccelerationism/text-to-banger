@@ -1,10 +1,10 @@
 import pandas as pd
 
 # Load the tweets data
-tweets_df = pd.read_csv('data/last_100_tweets_from_bangerers.csv')
+tweets_df = pd.read_csv('data/raw/last_100_tweets_from_bangerers.csv')
 
 # Load the accounts data
-accounts_df = pd.read_csv('data/banger_accounts_w_followers.csv')
+accounts_df = pd.read_csv('data/raw/banger_accounts_w_followers.csv')
 
 # Merge the two dataframes on the username or account column (change as appropriate)
 merged_df = pd.merge(tweets_df, accounts_df, on='username', how='left')
@@ -17,6 +17,6 @@ RATIO = 0.0084 # Getting aproximately 1/7 of the data -> TODO: test on smaller d
 merged_df = merged_df[(merged_df['like_count'] / merged_df['followers']) > RATIO]
 
 # Save the filtered data back to a new CSV
-merged_df.to_csv('data/filtered_banger_tweets.csv', index=False)
+merged_df.to_csv('data/processed/filtered_banger_tweets.csv', index=False)
 
-print("Filtered tweets saved to 'data/filtered_tweets.csv'")
+print("Filtered tweets saved to 'data/processed/filtered_tweets.csv'")

@@ -1,12 +1,4 @@
 .env
 env
 .DS_Store
-model/data/*
-!model/data/banger_accounts.csv
-!model/data/banger_accounts_w_followers.csv
-!model/data/last_100_tweets_from_bangerers.csv
-!model/data/filtered_banger_tweets.csv
-!model/data/bangers_w_boring_vers.json
-!model/data/bangers_finetuning_data.json
-!model/data/bangers_finetuning_data_prepared.jsonl
 nodemodules

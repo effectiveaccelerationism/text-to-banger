@@ -48,7 +48,7 @@ def get_followers_from_username(username):
 
 def main():
     # Open the input CSV file for reading
-    with open('data/banger_accounts.csv', mode='r', newline='', encoding='utf-8') as infile:
+    with open('data/raw/banger_accounts.csv', mode='r', newline='', encoding='utf-8') as infile:
         reader = csv.reader(infile)
         usernames = [row[0] for row in reader]
 
@@ -63,7 +63,7 @@ def main():
             print(f"Error fetching data for {username}: {e}")
 
     # Write the data to the output CSV file
-    with open('data/banger_accounts_w_followers.csv', mode='w', newline='', encoding='utf-8') as outfile:
+    with open('data/raw/banger_accounts_w_followers.csv', mode='w', newline='', encoding='utf-8') as outfile:
         writer = csv.writer(outfile)
         # Write header
         writer.writerow(['username', 'followers'])
