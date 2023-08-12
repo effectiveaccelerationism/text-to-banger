@@ -63,7 +63,7 @@ def get_last_100_tweets(user_id):
     return response.json()
 
 def main():
-    with open('data/banger_accounts_w_followers.csv', 'r') as infile:
+    with open('data/raw/banger_accounts_w_followers.csv', 'r') as infile:
         reader = csv.reader(infile)
         # Skip the first row as it contains the header
         next(reader)
@@ -86,7 +86,7 @@ def main():
             tweets_data.append([username, tweet['id'], tweet['text'], like_count, tweet['created_at']])
 
     # Writing the tweets to an output CSV
-    with open('data/last_100_tweets_from_bangerers.csv', 'w', newline='') as outfile:
+    with open('data/raw/last_100_tweets_from_bangerers.csv', 'w', newline='') as outfile:
         writer = csv.writer(outfile)
         writer.writerow(["username", "tweet_id", "tweet_text", "like_count", "created_at"])  # CSV headers
         writer.writerows(tweets_data)
