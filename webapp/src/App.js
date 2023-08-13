@@ -71,7 +71,7 @@ function App() {
       <header className="App-header">
         <div className="logo-container">
           {/* <img src={logo} className="App-logo" alt="logo" /> */}
-          <h1 className="text-logo">text-to-banger</h1>
+          {/* <h1 className="text-logo">TWITTER INTERN</h1> */}
         </div>
         <div className="content-container">
           <form onSubmit={handleFormSubmit} className="tweet-form"> {/* Wrap everything in a form and attach submit handler */}
