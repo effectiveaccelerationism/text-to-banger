@@ -67,14 +67,14 @@ export default function BangerModal() {
       <ThemeButton />
       <header className="min-h-screen flex flex-col justify-center light:bg-white dark:bg-black">
         <div className="flex justify-center w-full">
-          <h1 className="font-mono mb-6 text-4xl font-bold dark:text-white">
+          <h1 className="font-mono mb-6 text-5xl font-bold dark:text-white">
             text-to-banger
           </h1>
         </div>
-        <div className="flex flex-col items-center justify-center mx-5">
+        <div className="flex flex-col items-center justify-center mx-5 text-lg">
           <form
             onSubmit={handleSubmit}
-            className="bg-gradient-to-br bg-transparent border border-black dark:border-white rounded-sm px-2.5 pt-2 pb-3 w-full max-w-[500px] flex flex-col shadow-md"
+            className="bg-gradient-to-br bg-transparent border border-black dark:border-white rounded-sm px-2.5 pt-2 pb-3 w-full max-w-[700px] flex flex-col shadow-md"
           >
             <textarea
               id="tweetIdea"
@@ -102,12 +102,12 @@ export default function BangerModal() {
               )}
             </button>
           </form>
-          <div className="m-auto pt-5 mt-4 rounded-lg max-w-[500px] h-96 overflow-y-auto overflow-x-hidden font-mono">
+          <div className="m-auto pt-5 mt-4 rounded-lg max-w-[700px] h-96 overflow-y-auto overflow-x-hidden font-mono">
             {messages.map((m, index) => (
               <div
                 key={m.id}
                 className={`pl-4 pr-1 text-left ${
-                  index % 2 === 0 ? "mb-1" : "mb-7"
+                  index % 2 === 0 ? "mb-3" : "mb-9"
                 }`}
               >
                 <strong>{m.role === "user" ? "Prompt" : "Banger"}:</strong>{" "}
