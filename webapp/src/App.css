@@ -11,14 +11,19 @@
   --dark-panel-background: #000;
   --dark-button-background: #000;
   --dark-button-text: #fff;
-  --dark-border-color: #fff;
+  --dark-border-color: #fff; /* Set to white for dark mode */
 
   --light-background-color: #fff;
   --light-text-color: #000;
   --light-panel-background: #fff;
   --light-button-background: #fff;
   --light-button-text: #000;
-  --light-border-color: var(--primary-color);
+  --light-border-color: #000; /* Set to black for light mode */
+
+  --dark-logo-text-color: #fff; /* White for dark mode */
+  --light-logo-text-color: #000; /* Black for light mode */
+
+  --logo-text-color: var(--dark-logo-text-color);
 
   --background-color: var(--dark-background-color);
   --text-color: var(--dark-text-color);
@@ -38,7 +43,7 @@ body, p, button {
   font-family: 'AnonPro', monospace;
   font-size: 40px;
   font-weight: bold;
-  color: var(--primary-color);
+  color: var(--logo-text-color); /* Use the CSS variable here */
 }
 
 .App {
