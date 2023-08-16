@@ -8,7 +8,8 @@ A simple API converting a user's proposed tweet into a veritable banger.
 gh repo clone effectiveaccelerationism/text-to-banger
 ```
 
-### Install and run the app
+### ~~Install and run the app~~
+> **Note:** The current install and run procedure results in an error, and we are working diligently to fix this.
 ```
 cd webapp
 npm install
