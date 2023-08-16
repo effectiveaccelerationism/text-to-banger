@@ -1,0 +1,48 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@media only screen and (max-width: 768px) {
+  .tweet-form {
+    width: 80%;
+    margin: 0 auto;
+  }
+
+  .generated-tweet-container {
+    width: 80%;
+    margin: 0 auto;
+    text-align: center;
+  }
+}
+
+@layer base {
+  @font-face {
+    font-family: "AnonPro";
+    src: url("../public/fonts/AnonymousPro-Bold.ttf") format("truetype");
+    font-weight: bold;
+  }
+  @font-face {
+    font-family: "AnonPro";
+    src: url("../public/fonts/AnonymousPro-Regular.ttf") format("truetype");
+    font-weight: normal;
+  }
+  :root {
+    --color-primary: 255, 255, 255;
+  }
+}
+
+div::-webkit-scrollbar {
+  width: 2px;
+}
+
+div::-webkit-scrollbar-thumb {
+  background: #45454579;
+}
+
+div::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+div::-webkit-scrollbar-thumb:hover {
+  background: #525252;
+}
