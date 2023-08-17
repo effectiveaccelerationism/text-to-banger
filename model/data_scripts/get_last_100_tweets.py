@@ -78,31 +78,27 @@ def main():
             else:
                 oldest_tweet_ids[username] = max(oldest_tweet_ids[username], tweet_id)
 
-    tweets_data = []
-
-    for username in oldest_tweet_ids.keys():
-        if username != "pataguccigoon":
-            continue
-
-        print(f"Getting tweets for {username}")
-        user_id = get_user_id_from_username(username)
-        tweets = get_last_100_tweets(user_id, oldest_tweet_ids.get(username))
-        
-        # Extract required fields from the response (or modify as per requirement)
-        for tweet in tweets.get('data', []):
-            # Skip tweets with attachments
-            if "attachments" in tweet:
-                continue
-
-            like_count = tweet['public_metrics']['like_count']
-            tweets_data.append([username, tweet['id'], tweet['text'], like_count, tweet['created_at']])
-
-    # Writing the tweets to an output CSV
     with open('data/raw/last_100_tweets_from_bangerers.csv', 'a', newline='') as outfile:
         writer = csv.writer(outfile)
         if outfile.tell() == 0:
             writer.writerow(["username", "tweet_id", "tweet_text", "like_count", "created_at"])  # CSV headers
-        writer.writerows(tweets_data)
+
+        for username in oldest_tweet_ids.keys():
+            if username != "pataguccigoon":
+                continue
+
+            print(f"Getting tweets for {username}")
+            user_id = get_user_id_from_username(username)
+            tweets = get_last_100_tweets(user_id, oldest_tweet_ids.get(username))
+            
+            # Extract required fields from the response (or modify as per requirement)
+            for tweet in tweets.get('data', []):
+                # Skip tweets with attachments
+                if "attachments" in tweet:
+                    continue
+
+                like_count = tweet['public_metrics']['like_count']
+                writer.writerow([username, tweet['id'], tweet['text'], like_count, tweet['created_at']])
 
 if __name__ == "__main__":
     main()
