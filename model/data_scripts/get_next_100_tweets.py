@@ -36,7 +36,7 @@ def get_user_id_from_username(username):
     user_data = response.json()
     return user_data['data']['id']
 
-def get_last_100_tweets(user_id, since_id=None):
+def get_last_100_tweets(user_id, until_id=None):
     # Create URL to fetch tweets
     url = f"https://api.twitter.com/2/users/{user_id}/tweets"
 
@@ -46,8 +46,8 @@ def get_last_100_tweets(user_id, since_id=None):
         "exclude": "retweets,replies",  
         "max_results": 5
     }
-    if since_id:
-        params['since_id'] = since_id
+    if until_id:
+        params['until_id'] = until_id
     
     # Set headers
     headers = {
@@ -76,14 +76,13 @@ def main():
             if username not in oldest_tweet_ids:
                 oldest_tweet_ids[username] = tweet_id
             else:
-                oldest_tweet_ids[username] = max(oldest_tweet_ids[username], tweet_id)
+                oldest_tweet_ids[username] = min(oldest_tweet_ids[username], tweet_id)
 
     tweets_data = []
 
     for username in oldest_tweet_ids.keys():
         if username != "pataguccigoon":
             continue
-
         print(f"Getting tweets for {username}")
         user_id = get_user_id_from_username(username)
         tweets = get_last_100_tweets(user_id, oldest_tweet_ids.get(username))
