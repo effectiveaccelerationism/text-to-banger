@@ -44,7 +44,7 @@ def get_last_100_tweets(user_id, since_id=None):
     params = {
         "tweet.fields": "created_at,public_metrics,attachments",  
         "exclude": "retweets,replies",  
-        "max_results": 5
+        "max_results": 100
     }
     if since_id:
         params['since_id'] = since_id
@@ -84,9 +84,6 @@ def main():
             writer.writerow(["username", "tweet_id", "tweet_text", "like_count", "created_at"])  # CSV headers
 
         for username in oldest_tweet_ids.keys():
-            if username != "pataguccigoon":
-                continue
-
             print(f"Getting tweets for {username}")
             user_id = get_user_id_from_username(username)
             tweets = get_last_100_tweets(user_id, oldest_tweet_ids.get(username))
