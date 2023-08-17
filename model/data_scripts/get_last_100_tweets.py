@@ -68,7 +68,7 @@ def main():
     # Mapping of usernames to oldest tweet IDs
     oldest_tweet_ids = {}
 
-    with open('data/raw/last_100_tweets_from_bangerers.csv', 'r') as infile:
+    with open('data/raw/bangerers_tweets.csv', 'r') as infile:
         reader = csv.reader(infile)
         next(reader)
         for row in reader:
@@ -78,7 +78,7 @@ def main():
             else:
                 oldest_tweet_ids[username] = max(oldest_tweet_ids[username], tweet_id)
 
-    with open('data/raw/last_100_tweets_from_bangerers.csv', 'a', newline='') as outfile:
+    with open('data/raw/bangerers_tweets.csv', 'a', newline='') as outfile:
         writer = csv.writer(outfile)
         if outfile.tell() == 0:
             writer.writerow(["username", "tweet_id", "tweet_text", "like_count", "created_at"])  # CSV headers

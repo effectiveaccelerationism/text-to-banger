@@ -1,7 +1,7 @@
 import pandas as pd
 
 # Load the tweets data
-tweets_df = pd.read_csv('data/raw/last_100_tweets_from_bangerers.csv')
+tweets_df = pd.read_csv('data/raw/bangerers_tweets.csv')
 
 # Load the accounts data
 accounts_df = pd.read_csv('data/raw/banger_accounts_w_followers.csv')
