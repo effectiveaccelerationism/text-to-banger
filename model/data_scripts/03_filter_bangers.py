@@ -19,7 +19,7 @@ merged_df = merged_df[~merged_df['tweet_text'].str.contains('http://|https://|@|
 print("Number of tweets post-filter:", len(merged_df))
 
 # Define a followers/likes ratio
-RATIO = 0.0168 # 0.0084 # Getting aproximately 1/7 of the data -> TODO: test on smaller data pool w 0.0168
+RATIO = 0.0126 # 0.0084 # Getting aproximately 1/7 of the data -> TODO: test on smaller data pool w 0.0168
 merged_df = merged_df[(merged_df['like_count'] / merged_df['followers']) > RATIO]
 print("Number of tweets post ratio-filter:", len(merged_df))
 
