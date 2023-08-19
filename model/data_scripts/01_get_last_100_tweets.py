@@ -36,16 +36,18 @@ def get_user_id_from_username(username):
     user_data = response.json()
     return user_data['data']['id']
 
-def get_last_100_tweets(user_id):
+def get_last_100_tweets(user_id, since_id=None):
     # Create URL to fetch tweets
     url = f"https://api.twitter.com/2/users/{user_id}/tweets"
 
     # Get parameters
     params = {
-        "tweet.fields": "created_at,public_metrics,attachments",  # Added 'attachments' to check for media attachments
-        "exclude": "retweets,replies",  # Exclude retweets and replies
-        "max_results": 100  # Get the last 100 tweets
+        "tweet.fields": "created_at,public_metrics,attachments",  
+        "exclude": "retweets,replies",  
+        "max_results": 100
     }
+    if since_id:
+        params['since_id'] = since_id
     
     # Set headers
     headers = {
@@ -63,33 +65,37 @@ def get_last_100_tweets(user_id):
     return response.json()
 
 def main():
-    with open('data/raw/banger_accounts_w_followers.csv', 'r') as infile:
+    # Mapping of usernames to oldest tweet IDs
+    oldest_tweet_ids = {}
+
+    with open('data/raw/bangerers_tweets.csv', 'r') as infile:
         reader = csv.reader(infile)
-        # Skip the first row as it contains the header
         next(reader)
-        usernames = [row[0] for row in reader]
+        for row in reader:
+            username, tweet_id = row[0], row[1]
+            if username not in oldest_tweet_ids:
+                oldest_tweet_ids[username] = tweet_id
+            else:
+                oldest_tweet_ids[username] = max(oldest_tweet_ids[username], tweet_id)
 
-    tweets_data = []
-
-    for username in usernames:
-        print(f"Getting tweets for {username}")
-        user_id = get_user_id_from_username(username)
-        tweets = get_last_100_tweets(user_id)
-        
-        # Extract required fields from the response (or modify as per requirement)
-        for tweet in tweets.get('data', []):
-            # Skip tweets with attachments
-            if "attachments" in tweet:
-                continue
-
-            like_count = tweet['public_metrics']['like_count']
-            tweets_data.append([username, tweet['id'], tweet['text'], like_count, tweet['created_at']])
-
-    # Writing the tweets to an output CSV
-    with open('data/raw/last_100_tweets_from_bangerers.csv', 'w', newline='') as outfile:
+    with open('data/raw/bangerers_tweets.csv', 'a', newline='') as outfile:
         writer = csv.writer(outfile)
-        writer.writerow(["username", "tweet_id", "tweet_text", "like_count", "created_at"])  # CSV headers
-        writer.writerows(tweets_data)
+        if outfile.tell() == 0:
+            writer.writerow(["username", "tweet_id", "tweet_text", "like_count", "created_at"])  # CSV headers
+
+        for username in oldest_tweet_ids.keys():
+            print(f"Getting tweets for {username}")
+            user_id = get_user_id_from_username(username)
+            tweets = get_last_100_tweets(user_id, oldest_tweet_ids.get(username))
+            
+            # Extract required fields from the response (or modify as per requirement)
+            for tweet in tweets.get('data', []):
+                # Skip tweets with attachments
+                if "attachments" in tweet:
+                    continue
+
+                like_count = tweet['public_metrics']['like_count']
+                writer.writerow([username, tweet['id'], tweet['text'], like_count, tweet['created_at']])
 
 if __name__ == "__main__":
     main()
