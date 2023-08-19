@@ -87,7 +87,7 @@ class MyServer(BaseHTTPRequestHandler):
             self.send_header('Access-Control-Allow-Origin', '*')
             self.end_headers()
             self.wfile.write(bytes('null', "utf-8"))
-3
+
 if __name__ == "__main__":        
     webServer = HTTPServer((hostName, int(serverPort)), MyServer)
     print("Server started http://%s:%s" % (hostName, serverPort))
