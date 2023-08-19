@@ -7,20 +7,33 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 load_dotenv()
 
 api_key = os.getenv("OPENAI_API_KEY")
+model_name = os.getenv("OPENAI_MODEL_NAME")
 openai.api_key = api_key
 hostName = "localhost"
 serverPort = 8080
 
 def generate_banger(tweet_text):
     print(f"Generating banger for tweet: '{tweet_text}'")
-    prompt = f"Turn this tweet into a solid banger, where a banger is a tweet of shocking and mildly psychotic comedic value, that's prone to go viral: '{tweet_text}'"
-    response = openai.Completion.create(
-        engine="text-davinci-003",  # You can choose a different engine based on your subscription
-        prompt=prompt,
-        max_tokens=100,
-        temperature=0.7,  # Adjust the temperature for more randomness (0.2 to 1.0)
-    )
-    banger_tweet = response.choices[0].text.strip()
+    if ":" in model_name: # For finetuned models
+        prompt = f"{tweet_text}\n\n###\n\n"
+        response = openai.Completion.create(
+            model=model_name,  # You can choose a different engine based on your subscription
+            prompt=prompt,
+            max_tokens=100,
+            temperature=1,  # Adjust the temperature for more randomness (0.2 to 1.0)
+            stop=["END"]
+        )
+        banger_tweet = response.choices[0].text.strip()
+        banger_tweet = re.sub(r'END', '', banger_tweet)
+    else:
+        prompt = f"Turn this tweet into a solid banger, where a banger is a tweet of shocking and mildly psychotic comedic value, that's prone to go viral: '{tweet_text}'"
+        response = openai.Completion.create(
+            model=model_name,  # You can choose a different engine based on your subscription
+            prompt=prompt,
+            max_tokens=100,
+            temperature=0.7,  # Adjust the temperature for more randomness (0.2 to 1.0)
+        )
+        banger_tweet = response.choices[0].text.strip()
 
     # Remove hashtags
     banger_tweet = re.sub(r'#\S+', '', banger_tweet)  # Remove hashtags
