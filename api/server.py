@@ -128,7 +128,8 @@ openai.api_key = api_key
 
 app = Flask(__name__)
 # Enable CORS for the entire app with credentials support
-CORS(app, supports_credentials=True)
+CORS(app, resources={r"/generate-banger": {"origins": "*"}},
+     supports_credentials=True)
 
 
 def generate_banger(tweet_text):
