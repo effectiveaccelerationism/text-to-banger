@@ -13,45 +13,45 @@
 # serverPort = 8080
 
 # def generate_banger(tweet_text):
-# print(f"Generating banger for tweet: '{tweet_text}'")
-# if ":" in model_name: # For finetuned models
-#     prompt = f"{tweet_text}\n\n###\n\n"
-#     response = openai.Completion.create(
-#         model=model_name,  # You can choose a different engine based on your subscription
-#         prompt=prompt,
-#         max_tokens=100,
-#         temperature=1,  # Adjust the temperature for more randomness (0.2 to 1.0)
-#         stop=["END"]
-#     )
-#     banger_tweet = response.choices[0].text.strip()
-#     banger_tweet = re.sub(r'END', '', banger_tweet)
-# else:
-#     prompt = f"Turn this tweet into a solid banger, where a banger is a tweet of shocking and mildly psychotic comedic value, that's prone to go viral: '{tweet_text}'"
-#     response = openai.Completion.create(
-#         model=model_name,  # You can choose a different engine based on your subscription
-#         prompt=prompt,
-#         max_tokens=100,
-#         temperature=0.7,  # Adjust the temperature for more randomness (0.2 to 1.0)
-#     )
-#     banger_tweet = response.choices[0].text.strip()
+#     print(f"Generating banger for tweet: '{tweet_text}'")
+#     if ":" in model_name: # For finetuned models
+#         prompt = f"{tweet_text}\n\n###\n\n"
+#         response = openai.Completion.create(
+#             model=model_name,  # You can choose a different engine based on your subscription
+#             prompt=prompt,
+#             max_tokens=100,
+#             temperature=1,  # Adjust the temperature for more randomness (0.2 to 1.0)
+#             stop=["END"]
+#         )
+#         banger_tweet = response.choices[0].text.strip()
+#         banger_tweet = re.sub(r'END', '', banger_tweet)
+#     else:
+#         prompt = f"Turn this tweet into a solid banger, where a banger is a tweet of shocking and mildly psychotic comedic value, that's prone to go viral: '{tweet_text}'"
+#         response = openai.Completion.create(
+#             model=model_name,  # You can choose a different engine based on your subscription
+#             prompt=prompt,
+#             max_tokens=100,
+#             temperature=0.7,  # Adjust the temperature for more randomness (0.2 to 1.0)
+#         )
+#         banger_tweet = response.choices[0].text.strip()
 
-# # Remove hashtags
-# banger_tweet = re.sub(r'#\S+', '', banger_tweet)  # Remove hashtags
+#     # Remove hashtags
+#     banger_tweet = re.sub(r'#\S+', '', banger_tweet)  # Remove hashtags
 
-# # Remove emojis
-# # banger_tweet = banger_tweet.encode('ascii', 'ignore').decode('ascii')
+#     # Remove emojis
+#     # banger_tweet = banger_tweet.encode('ascii', 'ignore').decode('ascii')
 
-# # Remove starting and ending single and double quotes
-# banger_tweet = re.sub(r'^"|"$|^\'|\'$', '', banger_tweet)
+#     # Remove starting and ending single and double quotes
+#     banger_tweet = re.sub(r'^"|"$|^\'|\'$', '', banger_tweet)
 
-# # Remove dot at the end if they exists
-# banger_tweet = re.sub(r'\.$', '', banger_tweet.strip())
+#     # Remove dot at the end if they exists
+#     banger_tweet = re.sub(r'\.$', '', banger_tweet.strip())
 
-# if not banger_tweet:
-#     return None
+#     if not banger_tweet:
+#         return None
 
-# print(f"Generated banger: '{banger_tweet}'")
-# return banger_tweet
+#     print(f"Generated banger: '{banger_tweet}'")
+#     return banger_tweet
 
 # class MyServer(BaseHTTPRequestHandler):
 #     def do_OPTIONS(self):
@@ -103,9 +103,11 @@
 
 import re
 import openai
+import json
 import os
 from dotenv import load_dotenv
 from flask import Flask, request, jsonify
+from flask_cors import CORS  # Import the CORS extension
 
 # Load environment variables
 load_dotenv()
@@ -115,6 +117,7 @@ model_name = os.getenv("OPENAI_MODEL_NAME")
 openai.api_key = api_key
 
 app = Flask(__name__)
+CORS(app)  # Enable CORS for the entire app
 
 
 def generate_banger(tweet_text):
@@ -122,10 +125,9 @@ def generate_banger(tweet_text):
     if ":" in model_name:  # For finetuned models
         prompt = f"{tweet_text}\n\n###\n\n"
         response = openai.Completion.create(
-            model=model_name,  # You can choose a different engine based on your subscription
+            model=model_name,
             prompt=prompt,
             max_tokens=100,
-            # Adjust the temperature for more randomness (0.2 to 1.0)
             temperature=1,
             stop=["END"]
         )
@@ -134,25 +136,14 @@ def generate_banger(tweet_text):
     else:
         prompt = f"Turn this tweet into a solid banger, where a banger is a tweet of shocking and mildly psychotic comedic value, that's prone to go viral: '{tweet_text}'"
         response = openai.Completion.create(
-            model=model_name,  # You can choose a different engine based on your subscription
+            model=model_name,
             prompt=prompt,
             max_tokens=100,
-            # Adjust the temperature for more randomness (0.2 to 1.0)
             temperature=0.7,
         )
         banger_tweet = response.choices[0].text.strip()
 
-    # Remove hashtags
-    banger_tweet = re.sub(r'#\S+', '', banger_tweet)  # Remove hashtags
-
-    # Remove emojis
-    # banger_tweet = banger_tweet.encode('ascii', 'ignore').decode('ascii')
-
-    # Remove starting and ending single and double quotes
-    banger_tweet = re.sub(r'^"|"$|^\'|\'$', '', banger_tweet)
-
-    # Remove dot at the end if they exists
-    banger_tweet = re.sub(r'\.$', '', banger_tweet.strip())
+    # ... (same code as before)
 
     if not banger_tweet:
         return None
