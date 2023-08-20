@@ -96,7 +96,7 @@ load_dotenv()
 api_key = os.getenv("OPENAI_API_KEY")
 model_name = os.getenv("OPENAI_MODEL_NAME")
 openai.api_key = api_key
-hostName = "localhost"
+hostName = "0.0.0.0"
 serverPort = 8080
 
 
