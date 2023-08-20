@@ -344,9 +344,9 @@ def generate_banger_route():
             response = jsonify({"error": "Error generating banger tweet."})
 
         # Add minimal CORS headers
-        response.headers.add("Access-Control-Allow-Origin", "*")
-        response.headers.add("Access-Control-Allow-Headers", "Content-Type")
-        response.headers.add("Access-Control-Allow-Methods", "POST")
+        # response.headers.add("Access-Control-Allow-Origin", "*")
+        # response.headers.add("Access-Control-Allow-Headers", "Content-Type")
+        # response.headers.add("Access-Control-Allow-Methods", "POST")
 
         return response
 
