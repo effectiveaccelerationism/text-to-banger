@@ -127,7 +127,8 @@ model_name = os.getenv("OPENAI_MODEL_NAME")
 openai.api_key = api_key
 
 app = Flask(__name__)
-CORS(app)
+# Enable CORS for the entire app with credentials support
+CORS(app, supports_credentials=True)
 
 
 def generate_banger(tweet_text):
