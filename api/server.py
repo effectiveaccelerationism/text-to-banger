@@ -97,7 +97,7 @@ api_key = os.getenv("OPENAI_API_KEY")
 model_name = os.getenv("OPENAI_MODEL_NAME")
 openai.api_key = api_key
 hostName = "0.0.0.0"
-serverPort = 8080
+serverPort = int(os.environ.get('PORT', 8080))
 
 
 def generate_banger(tweet_text):
@@ -184,7 +184,7 @@ class MyServer(BaseHTTPRequestHandler):
 
 3
 if __name__ == "__main__":
-    webServer = HTTPServer((hostName, int(serverPort)), MyServer)
+    webServer = HTTPServer((hostName, serverPort), MyServer)
     print("Server started http://%s:%s" % (hostName, serverPort))
 
     try:
