@@ -170,7 +170,8 @@ def generate_banger(tweet_text):
     return banger_tweet
 
 
-@app.route('/generate-banger', methods=['POST'])
+# Allow OPTIONS requests
+@app.route('/generate-banger', methods=['POST', 'OPTIONS'])
 def generate_banger_endpoint():
     try:
         data = request.get_json()
