@@ -12,7 +12,6 @@ function App() {
   const [darkMode, setDarkMode] = useState(true);
   const [contentType, setContentType] = useState("stocks");
   const API_URL = process.env.REACT_APP_API_URL || "http://localhost:8080";
-  console.log(API_URL);
 
   const handleTweetIdeaChange = (e) => {
     setTweetIdea(e.target.value);
