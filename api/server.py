@@ -61,10 +61,12 @@ def generate_banger_route():
 
         if banger_tweet:
             response = jsonify({"bangerTweet": banger_tweet})
+            # Allow all origins
+            response.headers.add("Access-Control-Allow-Origin", "*")
+
         else:
             response = jsonify({"error": "Error generating banger tweet."})
-
-        response.headers.add("Access-Control-Allow-Origin", "*")
+            response.headers.add("Access-Control-Allow-Origin", "*")
 
         # Add minimal CORS headers
         # response.headers.add("Access-Control-Allow-Origin", "*")
