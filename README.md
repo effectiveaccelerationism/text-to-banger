@@ -37,13 +37,13 @@ NOTE: You must have both the webapp and the apiserver running in two separate te
 - [x] Script getting the last 100 text tweets from the account in the banger accounts list
 - [x] Script filtering the tweets by a set likes/followers ratio 
 - [x] Script augmenting data rewriting the bangers in 10 boring ways through the OAI API
-- [ ] Fine-tuning script taking as input the boring bangers and outputting the bangers
+- [ ] Llama2 GGML fine-tuned model 
 
 ## API TODOs
 - [x] Create OAI API server
-- [ ] Add Custom API server with finetuned model
+- [x] Add Custom API server with finetuned model
 
 ## WebApp TODOs
 - [x] Add dark mode and set it as default
-- [ ] Get BANGER OAI API prompt
+- [x] Get BANGER OAI API prompt
 - [ ] Deploy webapp
