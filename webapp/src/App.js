@@ -1,9 +1,7 @@
-// import logo from './TTB.png';
 import "./App.css";
-
 import React, { useState } from "react";
-
 import axios from "axios";
+import QRCode from "qrcode.react";
 
 function App() {
   const [tweetIdea, setTweetIdea] = useState("");
@@ -11,101 +9,37 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [darkMode, setDarkMode] = useState(true);
   const [contentType, setContentType] = useState("stocks");
+  const [balance, setBalance] = useState(10);
+  const [showQRCode, setShowQRCode] = useState(false);
+
   const API_URL = process.env.REACT_APP_API_URL || "http://localhost:8080";
 
-  const handleTweetIdeaChange = (e) => {
-    setTweetIdea(e.target.value);
-  };
+  const handleTweetIdeaChange = (e) => setTweetIdea(e.target.value);
 
   const handleGenerateTweet = () => {
+    if (balance <= 0) {
+      setShowQRCode(true);
+      return;
+    }
+
     setIsLoading(true);
     setGeneratedTweet(null);
 
     axios
       .post(`${API_URL}/generate-banger`, {
         originalText: tweetIdea,
-        contentType: contentType,
+        contentType,
       })
-      .then((response) => {
-        if (response.status !== 200) {
-          throw new Error(`Request failed with status code ${response.status}`);
-        }
-        return response.data;
-      })
+      .then((response) => response.data)
       .then((data) => {
         setGeneratedTweet(data);
+        setBalance(balance - 1);
       })
-      .catch((error) => {
-        console.error("An error occurred:", error);
-        setGeneratedTweet("Error generating banger tweet.");
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
+      .catch(() => setGeneratedTweet("Error generating banger tweet."))
+      .finally(() => setIsLoading(false));
   };
 
-  const toggleDarkMode = () => {
-    setDarkMode(!darkMode);
-    if (darkMode) {
-      document.documentElement.style.setProperty(
-        "--background-color",
-        "var(--light-background-color)"
-      );
-      document.documentElement.style.setProperty(
-        "--text-color",
-        "var(--light-text-color)"
-      );
-      document.documentElement.style.setProperty(
-        "--panel-background",
-        "var(--light-panel-background)"
-      );
-      document.documentElement.style.setProperty(
-        "--button-background",
-        "var(--light-button-background)"
-      );
-      document.documentElement.style.setProperty(
-        "--button-text",
-        "var(--light-button-text)"
-      );
-      document.documentElement.style.setProperty(
-        "--border-color",
-        "var(--light-border-color)"
-      );
-      document.documentElement.style.setProperty(
-        "--logo-text-color",
-        "var(--light-logo-text-color)"
-      );
-    } else {
-      document.documentElement.style.setProperty(
-        "--background-color",
-        "var(--dark-background-color)"
-      );
-      document.documentElement.style.setProperty(
-        "--text-color",
-        "var(--dark-text-color)"
-      );
-      document.documentElement.style.setProperty(
-        "--panel-background",
-        "var(--dark-panel-background)"
-      );
-      document.documentElement.style.setProperty(
-        "--button-background",
-        "var(--dark-button-background)"
-      );
-      document.documentElement.style.setProperty(
-        "--button-text",
-        "var(--dark-button-text)"
-      );
-      document.documentElement.style.setProperty(
-        "--border-color",
-        "var(--dark-border-color)"
-      );
-      document.documentElement.style.setProperty(
-        "--logo-text-color",
-        "var(--dark-logo-text-color)"
-      );
-    }
-  };
+  const toggleDarkMode = () => setDarkMode(!darkMode);
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
@@ -119,63 +53,63 @@ function App() {
     }
   };
 
+  const handlePaymentSuccess = () => {
+    setBalance(balance + 10);
+    setShowQRCode(false);
+  };
+
   return (
     <div className="App">
       <button className="mode-toggle" onClick={toggleDarkMode}>
         {darkMode ? "🌙" : "☀️"}
       </button>
       <header className="App-header">
-        <div className="logo-container">
-          {/* <img src={logo} className="App-logo" alt="logo" /> */}
-          <h1 className="text-logo">text-to-banger</h1>
-        </div>
+        <h1 className="text-logo">intern.gg</h1>
         <div className="content-container">
-          <form onSubmit={handleFormSubmit} className="tweet-form">
-            <textarea
-              id="tweetIdea"
-              value={tweetIdea}
-              onChange={handleTweetIdeaChange}
-              onKeyDown={handleKeyDown}
-              placeholder="What's happening?"
-              rows="4"
-            />
-            {/* <select value={contentType} onChange={(e) => setContentType(e.target.value)}>
-              <option value="stocks">Stocks</option>
-              <option value="crypto">Crypto</option>
-              <option value="nft">NFTs</option>
-            </select> */}
-            <button className="tweet-button" type="submit" disabled={isLoading}>
-              Generate Banger Tweet
-            </button>
-          </form>
-          {isLoading && <p>generating a banger...</p>}
-          <div className="generated-tweet-container">
-            {generatedTweet && (
-              <>
-                <p
-                  style={{
-                    color: generatedTweet.startsWith("Error")
-                      ? "darkred"
-                      : "inherit",
-                  }}
-                >
-                  {generatedTweet}
-                </p>
-                {!generatedTweet.startsWith("Error") && (
-                  <a
-                    className="tweet-button"
-                    href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
-                      generatedTweet
-                    )}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Post Banger Tweet
-                  </a>
+          <p>Your balance: {balance} coins</p>
+          {showQRCode ? (
+            <>
+              <p>Hire the intern to get more coins.</p>
+              <QRCode 
+              onClick={handlePaymentSuccess}
+              value="https://buy.stripe.com/00gaGE0mDd4o6K46oo" />
+          
+            </>
+          ) : (
+            <>
+              <form onSubmit={handleFormSubmit} className="tweet-form">
+                <textarea
+                  id="tweetIdea"
+                  value={tweetIdea}
+                  onChange={handleTweetIdeaChange}
+                  onKeyDown={handleKeyDown}
+                  placeholder="What's happening?"
+                  rows="4"
+                />
+                <button className="tweet-button" type="submit" disabled={isLoading}>
+                  Generate Banger Tweet
+                </button>
+              </form>
+              {isLoading && <p>generating a banger...</p>}
+              <div className="generated-tweet-container">
+                {generatedTweet && (
+                  <>
+                    <p style={{color: generatedTweet.startsWith("Error") ? "darkred" : "inherit"}}>
+                      {generatedTweet}
+                    </p>
+                    <a
+                      className="tweet-button"
+                      href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(generatedTweet)}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Post Banger Tweet
+                    </a>
+                  </>
                 )}
-              </>
-            )}
-          </div>
+              </div>
+            </>
+          )}
         </div>
       </header>
     </div>
