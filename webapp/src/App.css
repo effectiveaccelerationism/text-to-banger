@@ -84,7 +84,8 @@ body, p, button, a {
   border: 1px solid var(--border-color);
   border-radius: 5px;
   padding: 10px;
-  width: 500px;
+  max-width: 500px;
+  width: 100%;
   display: flex;
   flex-direction: column;
   box-shadow: 0px 10px 10px 2px rgba(0, 0, 0, 0.3);
@@ -101,8 +102,25 @@ body, p, button, a {
   font-size: 16px;
   cursor: pointer;
   border-radius: 5px;
-  width: 100%;  /* Full width */
+  width: calc(100%);  /* Full width minus padding */
   margin: 10px 0;  /* Add some top and bottom margin */
+  
+}
+
+.share-button {
+  background-color: var(--button-background);
+  border: 1px solid var(--border-color);
+  color: var(--button-text);
+  padding: 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  width: calc(80%);  /* Full width minus padding */
+  margin: 10px 0;  /* Add some top and bottom margin */
+  
 }
 
 .balance-container {
@@ -157,7 +175,8 @@ body, p, button, a {
 }
 
 .button-container {
-  width: 500px;  /* Same width as the tweet-form */
+  max-width: 500px;  /* Same max-width as the tweet-form */
+  width: 100%;  /* Full width */
   margin: 0 auto; /* Center the container */
   text-align: center;
 }
@@ -165,7 +184,7 @@ body, p, button, a {
 
 @media only screen and (max-width: 768px) {
   .tweet-form {
-    width: 80%;
+    max-width: 90%;  /* Set a flexible max-width for smaller screens */
     margin: 0 auto;
   }
 
@@ -214,3 +233,5 @@ body, p, button, a {
 .mode-toggle:hover {
   background-color: #888;
 }
+
+

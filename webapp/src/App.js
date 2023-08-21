@@ -1,3 +1,4 @@
+// React Component (JSX)
 import "./App.css";
 import React, { useState } from "react";
 import axios from "axios";
@@ -15,11 +16,13 @@ function App() {
   const API_URL = process.env.REACT_APP_API_URL || "http://localhost:8080";
 
   const handleTweetIdeaChange = (e) => setTweetIdea(e.target.value);
+
   const handleGenerateTweet = () => {
     if (balance <= 0) {
       setShowQRCode(true);
       return;
     }
+
     setIsLoading(true);
     setGeneratedTweet(null);
 
@@ -70,7 +73,7 @@ function App() {
             <>
               <h2 className="action-title"><u><a href="https://buy.stripe.com/00gaGE0mDd4o6K46oo" target="_blank" rel="noopener noreferrer">Subscribe</a></u> for unlimited coins.</h2>
               <div className="button-container">
-                <button className="tweet-button" onClick={handlePaymentRedirect}>Subscribe</button>
+                <button className="share-button" onClick={handlePaymentRedirect}>Subscribe</button>
               </div>
             </>
           ) : (
@@ -96,7 +99,7 @@ function App() {
                       {generatedTweet}
                     </p>
                     <a
-                      className="tweet-button"
+                      className="share-button"
                       href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(generatedTweet)}`}
                       target="_blank"
                       rel="noopener noreferrer"
