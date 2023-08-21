@@ -15,13 +15,11 @@ function App() {
   const API_URL = process.env.REACT_APP_API_URL || "http://localhost:8080";
 
   const handleTweetIdeaChange = (e) => setTweetIdea(e.target.value);
-
   const handleGenerateTweet = () => {
     if (balance <= 0) {
       setShowQRCode(true);
       return;
     }
-
     setIsLoading(true);
     setGeneratedTweet(null);
 
@@ -53,9 +51,8 @@ function App() {
     }
   };
 
-  const handlePaymentSuccess = () => {
-    setBalance(balance + 10);
-    setShowQRCode(false);
+  const handlePaymentRedirect = () => {
+    window.location.href = 'https://buy.stripe.com/00gaGE0mDd4o6K46oo';
   };
 
   return (
@@ -66,14 +63,15 @@ function App() {
       <header className="App-header">
         <h1 className="text-logo">intern.gg</h1>
         <div className="content-container">
-          <p>Your balance: {balance} coins</p>
+          <div className="balance-container">
+            <p>Your balance: <span className="coin-balance">{balance}</span> coins</p>
+          </div>
           {showQRCode ? (
             <>
-              <p>Hire the intern to get more coins.</p>
-              <QRCode 
-              onClick={handlePaymentSuccess}
-              value="https://buy.stripe.com/00gaGE0mDd4o6K46oo" />
-          
+              <h2 className="action-title"><u><a href="https://buy.stripe.com/00gaGE0mDd4o6K46oo" target="_blank" rel="noopener noreferrer">Subscribe</a></u> for unlimited coins.</h2>
+              <div className="button-container">
+                <button className="tweet-button" onClick={handlePaymentRedirect}>Subscribe</button>
+              </div>
             </>
           ) : (
             <>
@@ -87,11 +85,11 @@ function App() {
                   rows="4"
                 />
                 <button className="tweet-button" type="submit" disabled={isLoading}>
-                  Generate Banger Tweet
+                  {balance > 0 ? "Generate Banger Tweet" : (showQRCode ? "Subscribe" : "Generate Banger Tweet")}
                 </button>
               </form>
               {isLoading && <p>generating a banger...</p>}
-              <div className="generated-tweet-container">
+              <div className="button-container">
                 {generatedTweet && (
                   <>
                     <p style={{color: generatedTweet.startsWith("Error") ? "darkred" : "inherit"}}>

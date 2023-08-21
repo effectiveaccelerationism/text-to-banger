@@ -5,26 +5,24 @@
 
 :root {
   --primary-color: #000;
-
   --dark-background-color: #000;
   --dark-text-color: #fff;
   --dark-panel-background: #000;
   --dark-button-background: #000;
   --dark-button-text: #fff;
-  --dark-border-color: #fff; /* Set to white for dark mode */
+  --dark-border-color: #fff;
 
   --light-background-color: #fff;
   --light-text-color: #000;
   --light-panel-background: #fff;
   --light-button-background: #fff;
   --light-button-text: #000;
-  --light-border-color: #000; /* Set to black for light mode */
+  --light-border-color: #000;
 
-  --dark-logo-text-color: #fff; /* White for dark mode */
-  --light-logo-text-color: #000; /* Black for light mode */
+  --dark-logo-text-color: #fff;
+  --light-logo-text-color: #000;
 
   --logo-text-color: var(--dark-logo-text-color);
-
   --background-color: var(--dark-background-color);
   --text-color: var(--dark-text-color);
   --panel-background: var(--dark-panel-background);
@@ -33,8 +31,7 @@
   --border-color: var(--dark-border-color);
 }
 
-
-body, p, button {
+body, p, button, a {
   font-family: 'AnonPro', monospace;
   color: var(--text-color);
 }
@@ -43,7 +40,7 @@ body, p, button {
   font-family: 'AnonPro', monospace;
   font-size: 40px;
   font-weight: bold;
-  color: var(--logo-text-color); /* Use the CSS variable here */
+  color: var(--logo-text-color);
 }
 
 .App {
@@ -102,9 +99,38 @@ body, p, button {
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
-  margin: 5px 0;
   cursor: pointer;
   border-radius: 5px;
+  width: 100%;  /* Full width */
+  margin: 10px 0;  /* Add some top and bottom margin */
+}
+
+.balance-container {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.coin-balance {
+  font-size: 18px;
+  font-weight: normal;
+  color: #aaa;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.subscribe {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.action-title, .or-divider {
+  margin: 20px 0;
+  font-size: 20px;
+}
+
+.subscribe button.tweet-button {
+  width: 100%;
 }
 
 .tweet-form textarea {
@@ -119,20 +145,6 @@ body, p, button {
   color: var(--text-color);
 }
 
-/* .tweet-button {
-  background-color: var(--button-background);
-  border: none;
-  color: var(--button-text);
-  padding: 10px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 5px 0;
-  cursor: pointer;
-  border-radius: 5px;
-} */
-
 .tweet-button:hover {
   background-color: #888;
 }
@@ -144,6 +156,13 @@ body, p, button {
   padding-top: 20px;
 }
 
+.button-container {
+  width: 500px;  /* Same width as the tweet-form */
+  margin: 0 auto; /* Center the container */
+  text-align: center;
+}
+
+
 @media only screen and (max-width: 768px) {
   .tweet-form {
     width: 80%;
@@ -153,7 +172,6 @@ body, p, button {
   .generated-tweet-container {
     width: 80%;
     margin: 0 auto;
-    text-align: center;
   }
 
   .App-logo {
@@ -170,7 +188,7 @@ body, p, button {
   to {
     transform: rotate(360deg);
   }
-} 
+}
 
 .mode-toggle {
   background-color: var(--button-background);
