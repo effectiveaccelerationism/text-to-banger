@@ -17,7 +17,7 @@ def get_boring_versions(tweet):
     banger_opposites_prompts = ["Transform this viral tweet into an opposite sentiment version",
                                 "Transform this viral tweet into a boring version",
                                 "Transform this viral tweet into a short and non-viral",
-                                "Write a boring tweet related to the topic this viral tweet",
+                                "Write a boring tweet related to the topic of this viral tweet",
                                 "Write another tweet related to the topic of this viral tweet"]
     
     try:
@@ -26,7 +26,7 @@ def get_boring_versions(tweet):
             response = openai.ChatCompletion.create(
                 model="gpt-3.5-turbo",
                 messages=[
-                    {"role": "system", "content": "You are a helpful assistant in charge of rewriting tweets while closely following instructions. " \
+                    {"role": "system", "content": "You are a helpful assistant in charge of rewriting tweets. " \
                                                   "You only reply through tweets."},
                     {"role": "user", "content": f"{opposite_prompt}: '{tweet}'"}
                 ])
