@@ -2,11 +2,14 @@ import re
 import json
 
 def clean_boring_tweet(tweet):
-    # Remove the hashtags using re
+    # Remove hashtags
     tweet = re.sub(r'#\w+', '', tweet)
 
-    # Remove starting and ending single and double quotes
-    tweet = re.sub(r'^\'|^\"|\'$|\"$', '', tweet)
+    # Remove starting and ending single and double quotes, ending \" and \'
+    tweet = re.sub(r'^\'|^\"|\'$|\"$|\\\"$|\\\'$', '', tweet)
+
+    # Remove weird characters like \ud83c \udf1f \u2728
+    tweet = re.sub(r'[\u2000-\u3300]|[\ud83c\udc00-\udfff\ud83d\ude00-\udfff]', '', tweet)
 
     # Remove starting and ending whitespace
     tweet = tweet.strip()
