@@ -37,6 +37,7 @@ def transform_data(input_file, output_file):
         for boring_version in boring_versions:
             # Clean the boring version
             boring_version = clean_tweet(boring_version)
+            banger_tweet = clean_tweet(banger_tweet)
 
             # Create a dict for each pair and append to transformed_data
             if boring_version != banger_tweet and boring_version != '' and banger_tweet != '':
@@ -53,7 +54,33 @@ def transform_data(input_file, output_file):
         for item in transformed_data:
             f.write(json.dumps(item) + '\n')
 
-    # Write a JSONL version of the transformed data for the fine-tuning job
+    # Write a JSONL version of the transformed data for the fine-tuning job (chat format for gpt-3.5-turbo)
+    finetuning_chat_data = []
+    for item in transformed_data:
+        finetuning_chat_data.append({
+            "messages": [
+                {
+                    "role": "system",
+                    "content": "You are a bot instructed to to turn this tweet into a solid banger, " \
+                               "where a banger is a tweet of shocking and mildly psychotic comedic value, " \
+                               "that's prone to go viral. Reply only with the banger."
+                },
+                {
+                    "role": "user",
+                    "content": item['prompt']
+                },
+                {
+                    "role": "assistant",
+                    "content": item['completion']
+                }
+            ]
+        })
+    
+    with open(output_file.replace('.json', '_prepared_chat.jsonl'), 'w') as f:
+        for item in finetuning_chat_data:
+            f.write(json.dumps(item) + '\n')
+
+    # Write a JSONL version of the transformed data for the fine-tuning job (legacy format for babbage-002)
     finetuning_data = []
 
     # Set \n\n###\n\n common separator at the end of prompt key
@@ -63,7 +90,7 @@ def transform_data(input_file, output_file):
         item['completion'] = ' ' + item['completion'] + ' END'
         finetuning_data.append(item)
 
-    with open(output_file.replace('.json', '_prepared.jsonl'), 'w') as f:
+    with open(output_file.replace('.json', '_prepared_legacy.jsonl'), 'w') as f:
         for item in finetuning_data:
             f.write(json.dumps(item) + '\n')
 
