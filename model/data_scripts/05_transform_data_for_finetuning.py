@@ -6,25 +6,23 @@ import re
 def clean_tweet(tweet):
     # Remove hashtags
     tweet = re.sub(r'#\w+', '', tweet)
-    
-    # Remove weird characters like \ud83c \udf1f \u2728
-    tweet = re.sub(r'[\u2000-\u3300]|[\ud83c\udc00-\udfff\ud83d\ude00-\udfff]', '', tweet)
-    
+
     # Remove all emojis
     tweet = re.sub(r'[^\x00-\x7F]+', '', tweet)
-    
+
     # Change \u2019 to '
     tweet = re.sub(r'\u2019', '\'', tweet)
-    
-    # Remove starting and ending whitespace
-    tweet = tweet.strip()
-    
-    # Remove starting and ending single and double quotes
-    tweet = re.sub(r'^\'|^\"|\'$|\"$', '', tweet)
-    
+
+    # Remove and replace with "" all the starting and ending single and double quotes, 
+    # even when they are nested or preceded by spaces or other characters
+    tweet = re.sub(r'^[\s\'\"]+|[\s\'\"]+$', '', tweet)
+
+    # Remove all the starting and ending spaces
+    tweet = re.sub(r'^\s+|\s+$', '', tweet)
+
     # Remove ending dots
     tweet = re.sub(r'\.$', '', tweet)
-    
+
     return tweet
 
 def transform_data(input_file, output_file):
@@ -41,14 +39,32 @@ def transform_data(input_file, output_file):
             boring_version = clean_tweet(boring_version)
 
             # Create a dict for each pair and append to transformed_data
-            transformed_data.append({
-                "prompt": boring_version,
-                "completion": re.sub(r'\.$', '', clean_tweet(banger_tweet)) # Remove ending dots for data consistency
-            })
+            if boring_version != banger_tweet and boring_version != '' and banger_tweet != '':
+                transformed_data.append({
+                    "prompt": boring_version,
+                    "completion": re.sub(r'\.$', '', clean_tweet(banger_tweet)) # Remove ending dots for data consistency
+                })
+
+    # Remove duplicates
+    transformed_data = list({v['prompt']:v for v in transformed_data}.values())
 
     # Write the transformed data to the output file in the desired format
     with open(output_file, 'w') as f:
         for item in transformed_data:
+            f.write(json.dumps(item) + '\n')
+
+    # Write a JSONL version of the transformed data for the fine-tuning job
+    finetuning_data = []
+
+    # Set \n\n###\n\n common separator at the end of prompt key
+    for item in transformed_data:
+        item['prompt'] += '\n\n###\n\n'
+        # Set space at the beginning of completion key and " END" at the end
+        item['completion'] = ' ' + item['completion'] + ' END'
+        finetuning_data.append(item)
+
+    with open(output_file.replace('.json', '_prepared.jsonl'), 'w') as f:
+        for item in finetuning_data:
             f.write(json.dumps(item) + '\n')
 
 if __name__ == '__main__':
