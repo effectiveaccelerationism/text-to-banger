@@ -7,7 +7,6 @@ openai.api_key = os.getenv("OPENAI_API_KEY")
 
 # Create a file for the fine-tuning data
 training_file = openai.File.create(
-  filname="bangers_finetuning_data_prepared_chat.jsonl",
   file=open("data/final/bangers_finetuning_data_prepared_chat.jsonl", "rb"),
   purpose='fine-tune'
 )
