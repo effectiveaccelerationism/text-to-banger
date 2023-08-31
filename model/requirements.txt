@@ -9,3 +9,4 @@ tweepy==4.14.0
 urllib3==2.0.4
 pandas==2.0.3
 openai==0.27.8
+tiktoken==0.4.0

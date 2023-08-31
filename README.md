@@ -20,6 +20,7 @@ The app will be running on http://localhost:3000
 Currently the app runs with an OpenAI API server, soon to be dismissed in favor of a custom finetuned model. To run the OpenAI API server, you need to have an OpenAI API key. You can get one [here](https://platform.openai.com/account/api-keys). Once you have your API key, create a file named `.env` in the `apiserver` directory and add the following line to it:
 ```
 OPENAI_API_KEY=your-openai-key
+OPENAI_MODEL_NAME=text-davinci-003
 ```
 Then, run the server with
 ```
@@ -37,6 +38,7 @@ NOTE: You must have both the webapp and the apiserver running in two separate te
 - [x] Script getting the last 100 text tweets from the account in the banger accounts list
 - [x] Script filtering the tweets by a set likes/followers ratio 
 - [x] Script augmenting data rewriting the bangers in 10 boring ways through the OAI API
+- [x] Script finetuning a GPT-3-turbo model on the augmented data
 - [ ] Llama2 GGML fine-tuned model 
 
 ## API TODOs
