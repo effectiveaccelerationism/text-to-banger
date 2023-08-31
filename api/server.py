@@ -14,7 +14,7 @@ serverPort = 8080
 
 def generate_banger(tweet_text):
     print(f"Generating banger for tweet: '{tweet_text}'")
-    if ":" in model_name: # For finetuned models
+    if ":" in model_name and "gpt-3.5-turbo" not in model_name: # For legacy finetuned models
         prompt = f"{tweet_text}\n\n###\n\n"
         response = openai.Completion.create(
             model=model_name,  # You can choose a different engine based on your subscription
@@ -25,6 +25,21 @@ def generate_banger(tweet_text):
         )
         banger_tweet = response.choices[0].text.strip()
         banger_tweet = re.sub(r'END', '', banger_tweet)
+    elif ":" in model_name and "gpt-3.5-turbo" in model_name: # For new finetuned models
+        prompt = f"Turn this tweet into a solid banger, where a banger is a tweet of shocking and mildly psychotic comedic value, that's prone to go viral: '{tweet_text}'"
+        response = openai.ChatCompletion.create(
+            model=model_name,
+            messages=[
+                {"role": "system", "content": "You are a bot instructed to to turn this tweet into " \
+                                              "a solid banger, where a banger is a tweet of shocking " \
+                                              "and mildly psychotic comedic value, that's prone to go " \
+                                              "viral. Reply only with the banger."},
+                {"role": "user", "content": tweet_text}
+            ],
+            max_tokens=100,
+            temperature=0.7  # Adjust the temperature for more randomness (0.2 to 1.0)
+        )
+        banger_tweet = response.choices[0]["message"]["content"].strip()
     else:
         prompt = f"Turn this tweet into a solid banger, where a banger is a tweet of shocking and mildly psychotic comedic value, that's prone to go viral: '{tweet_text}'"
         response = openai.Completion.create(
