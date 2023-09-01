@@ -221,7 +221,7 @@ function App() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              Computer Power.
+              A100s & H100s
             </a>
           </u>{" "}
         </p>
