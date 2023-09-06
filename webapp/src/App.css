@@ -5,43 +5,49 @@
 
 :root {
   --primary-color: #000;
+
   --dark-background-color: #000;
   --dark-text-color: #fff;
   --dark-panel-background: #000;
   --dark-button-background: #000;
   --dark-button-text: #fff;
-  --dark-border-color: #fff;
+  --dark-border-color: #fff; /* Set to white for dark mode */
 
   --light-background-color: #fff;
   --light-text-color: #000;
   --light-panel-background: #fff;
   --light-button-background: #fff;
   --light-button-text: #000;
-  --light-border-color: #000;
+  --light-border-color: #000; /* Set to black for light mode */
 
-  --dark-logo-text-color: #fff;
-  --light-logo-text-color: #000;
+  --dark-logo-text-color: #fff; /* White for dark mode */
+  --light-logo-text-color: #000; /* Black for light mode */
 
   --logo-text-color: var(--dark-logo-text-color);
+
   --background-color: var(--dark-background-color);
   --text-color: var(--dark-text-color);
   --panel-background: var(--dark-panel-background);
   --button-background: var(--dark-button-background);
   --button-text: var(--dark-button-text);
   --border-color: var(--dark-border-color);
+  --icon-color: var(--dark-text-color);
 }
 
-body, p, button, a, h1, h2 {
+body.dark-mode {
+  --icon-color: var(--light-text-color);
+}
+
+body, p, button {
   font-family: 'AnonPro', monospace;
   color: var(--text-color);
-  text-align: center;  /* Text centering */
 }
 
 .text-logo {
   font-family: 'AnonPro', monospace;
   font-size: 40px;
   font-weight: bold;
-  color: var(--logo-text-color);
+  color: var(--logo-text-color); /* Use the CSS variable here */
 }
 
 .App {
@@ -59,76 +65,50 @@ body, p, button, a, h1, h2 {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  justify-content: center;
+  color: var(--text-color);
+}
+
+.logo-container {
+  width: 100%;
+  display: flex;
   justify-content: center;
 }
 
-.App-header, .content-container, .button-container {
+.content-container {
   display: flex;
   flex-direction: column;
-  align-items: center; /* Horizontally centering */
-  justify-content: center; /* Vertically centering */
-}
-
-.loading-text {
-  text-align: center;
-  width: 100%;
-}
-
-.App-footer {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  background-color: var(--panel-background);
-  color: var(--text-color);
-  text-align: center;
-  padding: 10px;
+  align-items: center;
+  justify-content: center;
 }
 
 .App-link {
   color: var(--primary-color);
 }
 
+.generate-button {
+  margin-top: 10px;
+}
+
+.tweet-form, .tweet-button.generate-button {
+  width: 500px;
+  margin: 10px auto;
+}
+
+label {
+  display: block;
+  margin-top: 10px;
+}
+
 .tweet-form {
   background: var(--panel-background);
-  padding: 10px;
-  max-width: 500px;
-  width: 100%;
+  border: 1px solid var(--border-color);
+  border-radius: 5px;
+  padding: 2px;
+  width: 500px;
   display: flex;
   flex-direction: column;
-  align-items: center;
   box-shadow: 0px 10px 10px 2px rgba(0, 0, 0, 0.3);
-}
-
-.tweet-button, .share-button {
-  background-color: var(--button-background);
-  border: 1px solid var(--border-color);
-  color: var(--button-text);
-  padding: 10px;
-  text-align: center;
-  /* display: inline-block; */
-  font-size: 16px;
-  cursor: pointer;
-  border-radius: 5px;
-  width: 100%;
-  margin: 10px 0;
-  /* white-space: nowrap; Prevents text wrapping */
-}
-
-.balance-container {
-  margin-bottom: 20px;
-  text-align: center;
-}
-
-.coin-balance {
-  font-size: 18px;
-  color: #aaa;
-  margin: 0 5px;
-}
-
-.action-title, .or-divider {
-  margin: 20px 0;
-  font-size: 20px;
 }
 
 .tweet-form textarea {
@@ -138,48 +118,80 @@ body, p, button, a, h1, h2 {
   outline: none;
   font-family: 'AnonPro', monospace;
   font-size: 16px;
+  line-height: 20px;
   background-color: var(--panel-background);
   color: var(--text-color);
 }
 
-.tweet-button:hover, .share-button:hover {
-  background-color: #212121;
-}
-
-.mode-toggle {
-  background-color: var(--button-background);
-  border: none;
-  color: var(--button-text);
-  padding: 10px;
+.icon-container {
   position: fixed;
   top: 20px;
   right: 20px;
-  width: 40px;
-  height: 40px;
-  line-height: 20px;
-  border-radius: 50%;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  display: flex; /* Flex layout */
+  flex-direction: row; /* Horizontal layout */
+  gap: 10px; /* Gap between icons */
+  z-index: 1000; /* Above other elements */
 }
 
-.mode-toggle:hover {
+.custom-button, .mode-toggle {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 24px; /* Icon size */
+  z-index: 1001; /* Above container */
+}
+
+
+.tweet-button {
+  background-color: var(--button-background);
+  border: 1px solid var(--border-color);
+  color: var(--button-text);
+  padding: 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 5px 0;
+  cursor: pointer;
+  border-radius: 5px;
+  z-index: 999; /* Decreased z-index to place this below other elements */
+}
+
+.tweet-button:hover {
   background-color: #888;
 }
 
-@media (max-width: 768px) {
-  .tweet-form, .button-container {
-    max-width: 90%;
+.generated-tweet-container {
+  width: 33%;
+  margin: 0 auto;
+  text-align: center;
+  padding-top: 20px;
+}
+
+@media only screen and (max-width: 768px) {
+  .tweet-form, .tweet-button.generate-button {
+    width: 80%;
+    margin: 10px auto;
+  }
+
+  .generated-tweet-container {
+    width: 80%;
     margin: 0 auto;
+    text-align: center;
   }
 
-  .App-footer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .tweet-button, .share-button {
-    /* width: calc(90% - 20px); 90% width of the container minus padding */
-    margin: 10px; /* Center the buttons */
-
+  .App-logo {
+    height: 10vmin;
+    margin-bottom: 30px;
+    pointer-events: none;
   }
 }
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+} 
