@@ -31,9 +31,10 @@
   --border-color: var(--dark-border-color);
 }
 
-body, p, button, a {
+body, p, button, a, h1, h2 {
   font-family: 'AnonPro', monospace;
   color: var(--text-color);
+  text-align: center;  /* Text centering */
 }
 
 .text-logo {
@@ -58,8 +59,20 @@ body, p, button, a {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  align-items: center;
   justify-content: center;
-  color: var(--text-color);
+}
+
+.App-header, .content-container, .button-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Horizontally centering */
+  justify-content: center; /* Vertically centering */
+}
+
+.loading-text {
+  text-align: center;
+  width: 100%;
 }
 
 .App-footer {
@@ -72,65 +85,34 @@ body, p, button, a {
   padding: 10px;
 }
 
-.logo-container {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-}
-
-.content-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
 .App-link {
   color: var(--primary-color);
 }
 
 .tweet-form {
   background: var(--panel-background);
-  border: 1px solid var(--border-color);
-  border-radius: 5px;
   padding: 10px;
   max-width: 500px;
   width: 100%;
   display: flex;
   flex-direction: column;
+  align-items: center;
   box-shadow: 0px 10px 10px 2px rgba(0, 0, 0, 0.3);
 }
 
-.tweet-button {
+.tweet-button, .share-button {
   background-color: var(--button-background);
   border: 1px solid var(--border-color);
   color: var(--button-text);
   padding: 10px;
   text-align: center;
-  text-decoration: none;
-  display: inline-block;
+  /* display: inline-block; */
   font-size: 16px;
   cursor: pointer;
   border-radius: 5px;
-  width: calc(100%);  /* Full width minus padding */
-  margin: 10px 0;  /* Add some top and bottom margin */
-  
-}
-
-.share-button {
-  background-color: var(--button-background);
-  border: 1px solid var(--border-color);
-  color: var(--button-text);
-  padding: 10px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  cursor: pointer;
-  border-radius: 5px;
-  width: calc(80%);  /* Full width minus padding */
-  margin: 10px 0;  /* Add some top and bottom margin */
-  
+  width: 100%;
+  margin: 10px 0;
+  /* white-space: nowrap; Prevents text wrapping */
 }
 
 .balance-container {
@@ -140,25 +122,13 @@ body, p, button, a {
 
 .coin-balance {
   font-size: 18px;
-  font-weight: normal;
   color: #aaa;
-  margin-left: 5px;
-  margin-right: 5px;
-}
-
-.subscribe {
-  width: 100%;
-  display: flex;
-  justify-content: center;
+  margin: 0 5px;
 }
 
 .action-title, .or-divider {
   margin: 20px 0;
   font-size: 20px;
-}
-
-.subscribe button.tweet-button {
-  width: 100%;
 }
 
 .tweet-form textarea {
@@ -168,59 +138,12 @@ body, p, button, a {
   outline: none;
   font-family: 'AnonPro', monospace;
   font-size: 16px;
-  line-height: 20px;
   background-color: var(--panel-background);
   color: var(--text-color);
 }
 
-.tweet-button:hover {
-  background-color: #888;
-}
-
-.generated-tweet-container {
-  width: 33%;
-  margin: 0 auto;
-  text-align: center;
-  padding-top: 20px;
-}
-
-.button-container {
-  max-width: 500px;  /* Same max-width as the tweet-form */
-  width: 100%;  /* Full width */
-  margin: 0 auto; /* Center the container */
-  text-align: center;
-}
-
-
-@media only screen and (max-width: 768px) {
-  .tweet-form {
-    max-width: 90%;  /* Set a flexible max-width for smaller screens */
-    margin: 0 auto;
-  }
-
-  .generated-tweet-container {
-    width: 80%;
-    margin: 0 auto;
-  }
-
-  .App-logo {
-    height: 10vmin;
-    margin-bottom: 30px;
-    pointer-events: none;
-  }
-  .App-footer {
-    font-size: 14px;
-    padding: 5px;
-  }
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.tweet-button:hover, .share-button:hover {
+  background-color: #212121;
 }
 
 .mode-toggle {
@@ -228,19 +151,13 @@ body, p, button, a {
   border: none;
   color: var(--button-text);
   padding: 10px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  cursor: pointer;
-  border-radius: 50%;
   position: fixed;
   top: 20px;
   right: 20px;
   width: 40px;
   height: 40px;
   line-height: 20px;
-  transition: background-color 0.3s ease;
+  border-radius: 50%;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
 }
 
@@ -248,4 +165,21 @@ body, p, button, a {
   background-color: #888;
 }
 
+@media (max-width: 768px) {
+  .tweet-form, .button-container {
+    max-width: 90%;
+    margin: 0 auto;
+  }
 
+  .App-footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .tweet-button, .share-button {
+    /* width: calc(90% - 20px); 90% width of the container minus padding */
+    margin: 10px; /* Center the buttons */
+
+  }
+}

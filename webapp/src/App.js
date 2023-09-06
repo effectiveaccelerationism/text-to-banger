@@ -120,6 +120,13 @@ function App() {
     window.location.href = "https://buy.stripe.com/00gaGE0mDd4o6K46oo";
   };
 
+  const tweetGeneratedContent = () => {
+    const tweetUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(
+      generatedTweet
+    )}`;
+    window.open(tweetUrl, "_blank");
+  };
+
   return (
     <div className="App">
       <button className="mode-toggle" onClick={toggleDarkMode}>
@@ -127,28 +134,11 @@ function App() {
       </button>
 
       <header className="App-header">
-        <h1 className="text-logo">intern.gg</h1>
+        <h1 className="text-logo">text-to-banger</h1>
         <div className="content-container">
-          <div className="balance-container">
-            <p>
-              Your balance: <span className="coin-balance">{balance}</span>{" "}
-              coins
-            </p>
-          </div>
           {showQRCode ? (
             <>
-              <h2 className="action-title">
-                <u>
-                  <a
-                    href="https://buy.stripe.com/00gaGE0mDd4o6K46oo"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Subscribe
-                  </a>
-                </u>{" "}
-                for unlimited coins.
-              </h2>
+              <h2 className="action-title">Subscribe for unlimited tweets.</h2>
               <div className="button-container">
                 <button
                   className="share-button"
@@ -160,72 +150,30 @@ function App() {
             </>
           ) : (
             <>
+              {isLoading && <p>generating a banger...</p>}
               <form onSubmit={handleFormSubmit} className="tweet-form">
-                <textarea
-                  id="tweetIdea"
-                  value={tweetIdea}
-                  onChange={handleTweetIdeaChange}
-                  onKeyDown={handleKeyDown}
-                  placeholder="What's happening?"
-                  rows="4"
-                />
+                {generatedTweet && <p>{generatedTweet}</p>}
                 <button
                   className="tweet-button"
                   type="submit"
                   disabled={isLoading}
                 >
-                  {balance > 0
-                    ? "Generate Banger Tweet"
-                    : showQRCode
-                    ? "Subscribe"
-                    : "Generate Banger Tweet"}
+                  {balance > 0 ? "Generate Banger Tweet" : "Subscribe"}
                 </button>
-              </form>
-              {isLoading && <p>generating a banger...</p>}
-              <div className="button-container">
                 {generatedTweet && (
-                  <>
-                    <p
-                      style={{
-                        color: generatedTweet.startsWith("Error")
-                          ? "darkred"
-                          : "inherit",
-                      }}
-                    >
-                      {generatedTweet}
-                    </p>
-                    <a
-                      className="share-button"
-                      href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
-                        generatedTweet
-                      )}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      Post Banger Tweet
-                    </a>
-                  </>
+                  <button
+                    className="tweet-button"
+                    onClick={tweetGeneratedContent}
+                  >
+                    Share Banger Tweet
+                  </button>
                 )}
-              </div>
+              </form>
             </>
           )}
         </div>
       </header>
-      <footer className="App-footer">
-        {/* <p className="action-title">Build an AI business.</p> */}
-        <p className="action-title">
-          Sell us your{" "}
-          <u>
-            <a
-              href="https://intern.gg"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              A100s & H100s
-            </a>
-          </u>{" "}
-        </p>
-      </footer>
+      <footer className="App-footer">{/* Footer content */}</footer>
     </div>
   );
 }
