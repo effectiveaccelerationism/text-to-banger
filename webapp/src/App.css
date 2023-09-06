@@ -128,17 +128,32 @@ label {
   top: 20px;
   right: 20px;
   display: flex; /* Flex layout */
-  flex-direction: row; /* Horizontal layout */
-  gap: 10px; /* Gap between icons */
+  align-items: center; /* Align items vertically */
+  justify-content: center; /* Align items horizontally */
+  gap: 1px; /* Gap between icons */
   z-index: 1000; /* Above other elements */
 }
 
-.custom-button, .mode-toggle {
+.custom-button {
   background: transparent;
   border: none;
   cursor: pointer;
-  font-size: 24px; /* Icon size */
+  font-size: 25px; /* GitHub icon size */
   z-index: 1001; /* Above container */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mode-toggle {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 23px; /* Emoji size */
+  z-index: 1001; /* Above container */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 
