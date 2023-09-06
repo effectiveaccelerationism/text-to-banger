@@ -22,7 +22,7 @@ while training_file.status != 'processed':
 # Create a fine-tuning job
 ft_job = openai.FineTuningJob.create(training_file=training_file.id, 
                                      model="gpt-3.5-turbo", 
-                                     suffix="text-to-banger-v2")
+                                     suffix="text-to-banger-v3")
 
 # Wait for the fine-tuning job to be processed
 ft_job = openai.FineTuningJob.retrieve(ft_job.id)
