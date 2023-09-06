@@ -1,15 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
+import ReactGA from "react-ga";
+
 import "./App.css";
 
 function App() {
+  // Initialize Google Analytics
+  useEffect(() => {
+    ReactGA.initialize("G-SZEJEE5GGC");
+    ReactGA.pageview(window.location.pathname);
+  }, []);
+
   const [tweetIdea, setTweetIdea] = useState("");
   const [generatedTweet, setGeneratedTweet] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [darkMode, setDarkMode] = useState(true);
-  const [contentType, setContentType] = useState("stocks");
+  // const [contentType, setContentType] = useState("stocks");
   const API_URL = process.env.REACT_APP_API_URL || "http://localhost:8080";
 
   const handleTweetIdeaChange = (e) => setTweetIdea(e.target.value);
@@ -17,11 +25,15 @@ function App() {
   const handleGenerateTweet = () => {
     setIsLoading(true);
     setGeneratedTweet(null);
+    ReactGA.event({
+      category: "Button",
+      action: "Clicked Generate Banger Tweet",
+    }); // Track click
 
     axios
       .post(`${API_URL}/generate-banger`, {
         originalText: tweetIdea,
-        contentType: contentType,
+        // contentType: contentType,
       })
       .then((response) => {
         if (response.status !== 200) {
@@ -172,6 +184,12 @@ function App() {
                 {!generatedTweet.startsWith("Error") && (
                   <a
                     className="tweet-button"
+                    onClick={() =>
+                      ReactGA.event({
+                        category: "Button",
+                        action: "Clicked Post Banger Tweet",
+                      })
+                    } // Track click
                     href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
                       generatedTweet
                     )}`}
