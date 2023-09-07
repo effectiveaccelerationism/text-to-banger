@@ -1,64 +1,118 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-// import logo from './TTB.png';
-import './App.css';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faGithub } from "@fortawesome/free-brands-svg-icons";
+import ReactGA from "react-ga";
+
+import "./App.css";
 
 function App() {
-  const [tweetIdea, setTweetIdea] = useState('');
+  // Initialize Google Analytics
+  useEffect(() => {
+    ReactGA.initialize("G-SZEJEE5GGC");
+    ReactGA.pageview(window.location.pathname);
+  }, []);
+
+  const [tweetIdea, setTweetIdea] = useState("");
   const [generatedTweet, setGeneratedTweet] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [darkMode, setDarkMode] = useState(true);
-  const [contentType, setContentType] = useState('stocks');
-  const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8080';
+  // const [contentType, setContentType] = useState("stocks");
+  const API_URL = process.env.REACT_APP_API_URL || "http://localhost:8080";
 
-  const handleTweetIdeaChange = (e) => {
-    setTweetIdea(e.target.value);
-  }
+  const handleTweetIdeaChange = (e) => setTweetIdea(e.target.value);
 
   const handleGenerateTweet = () => {
     setIsLoading(true);
     setGeneratedTweet(null);
-    
-    axios.post(`${API_URL}/generate-banger`, {
-      originalText: tweetIdea,
-      contentType: contentType
-    })
-    .then(response => {
-      if (response.status !== 200) {
-        throw new Error(`Request failed with status code ${response.status}`);
-      }
-      return response.data;
-    })
-    .then(data => {
-      setGeneratedTweet(data);
-    })
-    .catch(error => {
-      console.error('An error occurred:', error);
-      setGeneratedTweet("Error generating banger tweet.");
-    })
-    .finally(() => {
-      setIsLoading(false);
-    });
+    ReactGA.event({
+      category: "Button",
+      action: "Clicked Generate Banger Tweet",
+    }); // Track click
+
+    axios
+      .post(`${API_URL}/generate-banger`, {
+        originalText: tweetIdea,
+        // contentType: contentType,
+      })
+      .then((response) => {
+        if (response.status !== 200) {
+          throw new Error(`Request failed with status code ${response.status}`);
+        }
+        return response.data;
+      })
+      .then((data) => {
+        setGeneratedTweet(data);
+      })
+      .catch((error) => {
+        console.error("An error occurred:", error);
+        setGeneratedTweet("Error generating banger tweet.");
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   };
 
   const toggleDarkMode = () => {
     setDarkMode(!darkMode);
     if (darkMode) {
-      document.documentElement.style.setProperty('--background-color', 'var(--light-background-color)');
-      document.documentElement.style.setProperty('--text-color', 'var(--light-text-color)');
-      document.documentElement.style.setProperty('--panel-background', 'var(--light-panel-background)');
-      document.documentElement.style.setProperty('--button-background', 'var(--light-button-background)');
-      document.documentElement.style.setProperty('--button-text', 'var(--light-button-text)');
-      document.documentElement.style.setProperty('--border-color', 'var(--light-border-color)');
-      document.documentElement.style.setProperty('--logo-text-color', 'var(--light-logo-text-color)');
+      document.documentElement.style.setProperty(
+        "--background-color",
+        "var(--light-background-color)"
+      );
+      document.documentElement.style.setProperty(
+        "--text-color",
+        "var(--light-text-color)"
+      );
+      document.documentElement.style.setProperty(
+        "--panel-background",
+        "var(--light-panel-background)"
+      );
+      document.documentElement.style.setProperty(
+        "--button-background",
+        "var(--light-button-background)"
+      );
+      document.documentElement.style.setProperty(
+        "--button-text",
+        "var(--light-button-text)"
+      );
+      document.documentElement.style.setProperty(
+        "--border-color",
+        "var(--light-border-color)"
+      );
+      document.documentElement.style.setProperty(
+        "--logo-text-color",
+        "var(--light-logo-text-color)"
+      );
     } else {
-      document.documentElement.style.setProperty('--background-color', 'var(--dark-background-color)');
-      document.documentElement.style.setProperty('--text-color', 'var(--dark-text-color)');
-      document.documentElement.style.setProperty('--panel-background', 'var(--dark-panel-background)');
-      document.documentElement.style.setProperty('--button-background', 'var(--dark-button-background)');
-      document.documentElement.style.setProperty('--button-text', 'var(--dark-button-text)');
-      document.documentElement.style.setProperty('--border-color', 'var(--dark-border-color)');
-      document.documentElement.style.setProperty('--logo-text-color', 'var(--dark-logo-text-color)');
+      document.documentElement.style.setProperty(
+        "--background-color",
+        "var(--dark-background-color)"
+      );
+      document.documentElement.style.setProperty(
+        "--text-color",
+        "var(--dark-text-color)"
+      );
+      document.documentElement.style.setProperty(
+        "--panel-background",
+        "var(--dark-panel-background)"
+      );
+      document.documentElement.style.setProperty(
+        "--button-background",
+        "var(--dark-button-background)"
+      );
+      document.documentElement.style.setProperty(
+        "--button-text",
+        "var(--dark-button-text)"
+      );
+      document.documentElement.style.setProperty(
+        "--border-color",
+        "var(--dark-border-color)"
+      );
+      document.documentElement.style.setProperty(
+        "--logo-text-color",
+        "var(--dark-logo-text-color)"
+      );
     }
   };
 
@@ -68,7 +122,7 @@ function App() {
   };
 
   const handleKeyDown = (e) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
+    if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
       handleGenerateTweet();
     }
@@ -76,9 +130,21 @@ function App() {
 
   return (
     <div className="App">
-      <button className="mode-toggle" onClick={toggleDarkMode}>
-        {darkMode ? "🌙" : "☀️"}
-      </button>
+      <div className="icon-container">
+        <a
+          href="https://github.com/effectiveaccelerationism/text-to-banger"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <button className="custom-button custom-icon">
+            <FontAwesomeIcon icon={faGithub} color="grey" />
+          </button>
+        </a>
+
+        <button className="mode-toggle" onClick={toggleDarkMode}>
+          {darkMode ? "🌙" : "☀️"}
+        </button>
+      </div>
       <header className="App-header">
         <div className="logo-container">
           {/* <img src={logo} className="App-logo" alt="logo" /> */}
@@ -94,22 +160,39 @@ function App() {
               placeholder="What's happening?"
               rows="4"
             />
-            {/* <select value={contentType} onChange={(e) => setContentType(e.target.value)}>
-              <option value="stocks">Stocks</option>
-              <option value="crypto">Crypto</option>
-              <option value="nft">NFTs</option>
-            </select> */}
-            <button className="tweet-button" type="submit" disabled={isLoading}>Generate Banger Tweet</button>
           </form>
+          <button
+            className="tweet-button generate-button"
+            onClick={handleGenerateTweet}
+            disabled={isLoading}
+          >
+            Generate Banger Tweet
+          </button>
           {isLoading && <p>generating a banger...</p>}
           <div className="generated-tweet-container">
             {generatedTweet && (
               <>
-                <p style={{color: generatedTweet.startsWith("Error") ? 'darkred' : 'inherit'}}>{generatedTweet}</p>
+                <p
+                  style={{
+                    color: generatedTweet.startsWith("Error")
+                      ? "darkred"
+                      : "inherit",
+                  }}
+                >
+                  {generatedTweet}
+                </p>
                 {!generatedTweet.startsWith("Error") && (
                   <a
                     className="tweet-button"
-                    href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(generatedTweet)}`}
+                    onClick={() =>
+                      ReactGA.event({
+                        category: "Button",
+                        action: "Clicked Post Banger Tweet",
+                      })
+                    } // Track click
+                    href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
+                      generatedTweet
+                    )}`}
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -126,4 +209,3 @@ function App() {
 }
 
 export default App;
-
