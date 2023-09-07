@@ -1,4 +1,6 @@
-# Text-to-banger
+# text-to-banger
+![Metatag Image](webapp/public/metatag.png)
+
 A simple API converting a user's proposed tweet into a veritable banger.
 
 ## To run the app locally
@@ -22,6 +24,8 @@ Currently the app runs with an OpenAI API server, soon to be dismissed in favor 
 OPENAI_API_KEY=your-openai-key
 OPENAI_MODEL_NAME=text-davinci-003
 ```
+It's advisable to finetune a model by running the `generate_finetuned_model.py` script in the `model` directory.
+
 Then, run the server with
 ```
 cd api
