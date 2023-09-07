@@ -127,9 +127,10 @@ label {
   position: fixed;
   top: 20px;
   right: 20px;
+  left: 20px;
   display: flex; /* Flex layout */
   align-items: center; /* Align items vertically */
-  justify-content: center; /* Align items horizontally */
+  justify-content: space-between; /* Align items horizontally */
   gap: 1px; /* Gap between icons */
   z-index: 1000; /* Above other elements */
 }
